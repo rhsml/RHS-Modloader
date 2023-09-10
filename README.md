@@ -18,7 +18,7 @@ As of right now, while it is less automatic, copying the code manaully is much m
 
 *Month and day must be two digit, so for example use "03" instead of "3"*
 
-3. To the end of every period name, paste the code you have copied. If that period is not present on a day, the code for it will not run. While putting it on 3 or 4 periods would also work for most days, there are some days with weird schedules.
+3. To the end of every period name, paste the code you have copied. If that period is not present on a day, the code for it will not run. While putting it on 3 or 4 periods would also work for most days, there are some days with weird schedules. If done correctly, you won't see the code again.
 
 # How this works
 
