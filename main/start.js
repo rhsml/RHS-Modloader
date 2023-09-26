@@ -4,8 +4,6 @@ document.querySelector("html body div.container-fluid div.flexbar").insertAdjace
 </svg>
 </button>
 
-
-
 <div class="modal fade" id="rhsModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
