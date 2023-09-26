@@ -58,5 +58,5 @@ document.querySelector("html body div.container-fluid div.flexbar").insertAdjace
 
 `)
 var pluginStart = document.createElement("script");
-pluginStart.src = "https://cdn.jsdelivr.net/gh/PoyrazOzkusaksiz/RHS-Modloader@master/main/injector.js";
+pluginStart.src = "https://cdn.jsdelivr.net/gh/PoyrazOzkusaksiz/RHS-Modloader@master/main/plugins.js";
 document.body.appendChild(pluginStart);
