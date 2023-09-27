@@ -5,7 +5,7 @@ document.querySelector("html body div.container-fluid div.flexbar").insertAdjace
 </button>
 
 <div class="modal fade" id="rhsModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-xl">
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="exampleModalLabel" style="font-size:1.46rem;color:black">RHS Modloader</h1>
@@ -53,6 +53,12 @@ document.querySelector("html body div.container-fluid div.flexbar").insertAdjace
         }
         button[onclick*="d"] {
             font-size: 17px;
+        }
+        @media (min-width: 768px) {
+          .modal-xl {
+            width: 90%;
+           max-width:1200px;
+          }
         }
     </style>
 
