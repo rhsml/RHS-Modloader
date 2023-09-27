@@ -10,8 +10,8 @@ The Modloader itself will automatically update, but the electron app might need 
 
 # Installation Instructions
 
-## -- This will be changed to allow for a one-click install, removing the install process and making it easier for the end user. --
-## This is outdated, as an update is being developed to remove this nessecity.
+-- This will be changed to allow for a one-click install, removing the install process and making it easier for the end user. --
+This is outdated, as an update is being developed to remove this nessecity.
 
 As of right now, while it is less automatic, copying the code manaully is much more stable than attempting to change the domain's cookies, so this is reccomended for the time being.
 
