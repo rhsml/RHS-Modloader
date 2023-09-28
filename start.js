@@ -31,6 +31,7 @@ function toggleState(modName) {
       }
    }
 }
+window.toggleState = toggleState;
 
 // Function to apply CSS styles
 function applyStyles(cssCode) {
@@ -38,6 +39,7 @@ function applyStyles(cssCode) {
   styleTag.textContent = cssCode;
   document.head.appendChild(styleTag);
 }
+window.applyStyles = applyStyles;
 
 // Function to load CSS files on website load
 function loadCSSFiles() {
@@ -52,6 +54,7 @@ function loadCSSFiles() {
       }
   }
 }
+window.loadCSSFiles = loadCSSFiles;
 
 // Function to handle file uploada
 function handleFileUpload(event) {
@@ -75,6 +78,7 @@ function handleFileUpload(event) {
       }
   }
 }
+window.handleFileUpload = handleFileUpload;
 
 function renderObject(object) {
   const containerId = object.modName.endsWith('.js') ? 'pluginsContainer' : 'themesContainer';
@@ -92,6 +96,7 @@ function renderObject(object) {
 
   // If the object is a JS file, add a code container
 }
+window.renderObject = renderObject;
 
 var element = document.querySelector(".menu-rhs");
 
@@ -182,6 +187,7 @@ function deleteObject(modName, containerId) {
     const divToRemove = Array.from(container.querySelectorAll('label')).find((label) => label.textContent === modName).parentNode;
     container.removeChild(divToRemove);
 }
+window.deleteObject = deleteObject;
 
 // Function to download the file
 function downloadFile(fileName, fileContent) {
@@ -195,6 +201,7 @@ function downloadFile(fileName, fileContent) {
     window.URL.revokeObjectURL(url);
     document.body.removeChild(a);
 }
+window.downloadFile = downloadFile;
 
 // Function to load objects from local storage and render them on page load
 function loadObjects() {
@@ -210,6 +217,7 @@ function loadObjects() {
         }
     }
 }
+window.loadObjects = loadObjects;
 
 document.addEventListener('keydown', function(event) {
     // Check if the user presses Ctrl + Y
