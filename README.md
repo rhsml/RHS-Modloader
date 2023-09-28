@@ -8,6 +8,11 @@ The Modloader itself will automatically update, but the electron app might need 
 
 (If you prefer a longer link that is much more stable with no install, go [here]())
 
+# Features
+- Completely custom theme/plugin support using js/css
+- Saving state of enabled plugins/themes
+- As this is unfinished, this is not the full list of features. more will be added soon.
+
 # Installation Instructions
 
 -- This will be changed to allow for a one-click install, removing the install process and making it easier for the end user. --
