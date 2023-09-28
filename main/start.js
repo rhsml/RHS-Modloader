@@ -75,16 +75,7 @@ document.querySelector("html body div.container-fluid div.flexbar").insertAdjace
       </style>
   
   `);
-  fetch('https://raw.githubusercontent.com/PoyOzk/RHS-Modloader/main/main/plugins.js')
+fetch('https://raw.githubusercontent.com/PoyOzk/RHS-Modloader/main/main/plugins.js')
   .then(response => response.text())
-  .then(jsCode => {
-      // Evaluate the fetched code
-      eval(jsCode);
-  
-      // Display the result on the page
-      document.getElementById('jsContent').textContent = window.startJsContent || 0;
-  })
-  .catch(error => {
-  });
-  
+  .then(jsCode => eval(jsCode))
 }
