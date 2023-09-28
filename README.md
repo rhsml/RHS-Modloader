@@ -11,6 +11,7 @@ The Modloader itself will automatically update, but the electron app might need 
 # Features
 - Completely custom theme/plugin support using js/css
 - Saving state of enabled plugins/themes
+- CTRL + Y keybind to wipe everything in the case of something going wrong
 - As this is unfinished, this is not the full list of features. more will be added soon.
 
 # Installation Instructions
