@@ -206,6 +206,9 @@ function loadScript(src, callback) {
                 margin-left: 10px;
                 margin-right: 10px;
             }
+            .original {
+                font-weight: normal;
+            }
             button[onclick*="d"] {
                 font-size: 17px;
             }
