@@ -111,7 +111,7 @@ function loadScript(src, callback) {
   '<label>' + object.modName + '</label>' +
   '<input type="checkbox" data-mod-name="' + object.modName + '" ' + (object.state === 1 ? 'checked' : '') + ' onchange="toggleState(\'' + object.modName + '\')">' +
   '<button style="margin-right:8px;padding:.1rem .3rem;position:relative;top:5px" onclick="deleteObject(\'' + object.modName + '\', \'' + containerId + '\')" type="button" class="btn btn-outline-danger"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16"> <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z"></path></svg></button>' +
-  '<button style="margin-right:8px;padding:.1rem .3rem;position:relative;top:5px" onclick="downloadFile(\'' + object.modName + '\')" type="button" class="btn btn-outline-success"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-in-down" viewBox="0 0 16 16"> <path fill-rule="evenodd" d="M3.5 6a.5.5 0 0 0-.5.5v8a.5.5 0 0 0 .5.5h9a.5.5 0 0 0 .5-.5v-8a.5.5 0 0 0-.5-.5h-2a.5.5 0 0 1 0-1h2A1.5 1.5 0 0 1 14 6.5v8a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 14.5v-8A1.5 1.5 0 0 1 3.5 5h2a.5.5 0 0 1 0 1h-2z"></path> <path fill-rule="evenodd" d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"></path></svg></button>'
+  '<button style="margin-right:8px;padding:.1rem .3rem;position:relative;top:5px" onclick="downloadFile(\'' + object.modName + '\', getPluginData(\'' + object.modName + '\'))" type="button" class="btn btn-outline-success"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-in-down" viewBox="0 0 16 16"> <path fill-rule="evenodd" d="M3.5 6a.5.5 0 0 0-.5.5v8a.5.5 0 0 0 .5.5h9a.5.5 0 0 0 .5-.5v-8a.5.5 0 0 0-.5-.5h-2a.5.5 0 0 1 0-1h2A1.5 1.5 0 0 1 14 6.5v8a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 14.5v-8A1.5 1.5 0 0 1 3.5 5h2a.5.5 0 0 1 0 1h-2z"></path> <path fill-rule="evenodd" d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"></path></svg></button>'
     container.appendChild(div);
   }
   document.renderObject = renderObject;
@@ -361,6 +361,17 @@ border-right: none;
       document.body.removeChild(a);
   }
   document.downloadFile = downloadFile;
+
+  function getPluginData(pluginName) {
+    const pluginData = localStorage.getItem(pluginName);
+    if (pluginData) {
+      const parsedData = JSON.parse(pluginData);
+      return parsedData.code;
+    } else {
+      return 'Plugin data not found in localStorage.';
+    }
+  }
+  document.getPluginData = getPluginData;
   
   function loadObjects() {
       for (let i = 0; i < localStorage.length; i++) {
@@ -528,8 +539,9 @@ border-right: none;
         document.documentElement.removeEventListener("mouseup", stopDrag, false);
       }
     }
-    loadStylesheet('https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.3/codemirror.min.css');
-    loadScript('https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.3/codemirror.min.js', function() {
+    /* i broke something bad so no text coloring it is
+     loadStylesheet('https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.3/codemirror.min.css');
+     loadScript('https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.3/codemirror.min.js', function() {
       loadScript('https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.3/mode/javascript/javascript.min.js', function() {
         loadScript('https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.3/mode/css/css.min.js', function() {
       const codeInput = document.getElementById('code-input');
@@ -548,7 +560,7 @@ inputElement.addEventListener('input', function () {
   if (inputValue.endsWith('.js')) {
     codeMirror.setOption('mode', 'javascript');
     document.querySelector(".vscode-style").textContent = `  /* js mode */
-  span[role="presentation"] {
+  /*span[role="presentation"] {
     color: #F9D849 !important
   }
   .cm-keyword {
@@ -584,7 +596,7 @@ inputElement.addEventListener('input', function () {
   } else if (inputValue.endsWith('.css')) {
     codeMirror.setOption('mode', 'css');
     document.querySelector(".vscode-style").textContent = `  /* css mode */
-  .cm-string, .cm-atom {
+  /*.cm-string, .cm-atom {
     color: #CE9178 !important
   }
   .cm-def {
@@ -612,4 +624,5 @@ inputElement.addEventListener('input', function () {
 });
 });
 });
-});
+}); 
+*/
