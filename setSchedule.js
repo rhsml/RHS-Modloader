@@ -49,16 +49,16 @@ body {
 <body>
 		
 				
-<div class="container-fluid">
+<div class="container-fluid" id="setScheduleContainer">
 <div class="row g-3 align-items-center"> 
-	<div class="col-auto">
-		<div class="flexsubbar">
-			<svg style="top:-2px;position:relative" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M224 0c-17.7 0-32 14.3-32 32V49.9C119.5 61.4 64 124.2 64 200v33.4c0 45.4-15.5 89.5-43.8 124.9L5.3 377c-5.8 7.2-6.9 17.1-2.9 25.4S14.8 416 24 416H424c9.2 0 17.6-5.3 21.6-13.6s2.9-18.2-2.9-25.4l-14.9-18.6C399.5 322.9 384 278.8 384 233.4V200c0-75.8-55.5-138.6-128-150.1V32c0-17.7-14.3-32-32-32zm0 96h8c57.4 0 104 46.6 104 104v33.4c0 47.9 13.9 94.6 39.7 134.6H72.3C98.1 328 112 281.3 112 233.4V200c0-57.4 46.6-104 104-104h8zm64 352H224 160c0 17 6.7 33.3 18.7 45.3s28.3 18.7 45.3 18.7s33.3-6.7 45.3-18.7s18.7-28.3 18.7-45.3z"/></svg>
+	<div class="col-auto" id="setScheduleText">
+		<div class="flexsubbar" id="setScheduleTitleBar">
+			<svg id="setScheduleBellIcon" style="top:-2px;position:relative" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M224 0c-17.7 0-32 14.3-32 32V49.9C119.5 61.4 64 124.2 64 200v33.4c0 45.4-15.5 89.5-43.8 124.9L5.3 377c-5.8 7.2-6.9 17.1-2.9 25.4S14.8 416 24 416H424c9.2 0 17.6-5.3 21.6-13.6s2.9-18.2-2.9-25.4l-14.9-18.6C399.5 322.9 384 278.8 384 233.4V200c0-75.8-55.5-138.6-128-150.1V32c0-17.7-14.3-32-32-32zm0 96h8c57.4 0 104 46.6 104 104v33.4c0 47.9 13.9 94.6 39.7 134.6H72.3C98.1 328 112 281.3 112 233.4V200c0-57.4 46.6-104 104-104h8zm64 352H224 160c0 17 6.7 33.3 18.7 45.3s28.3 18.7 45.3 18.7s33.3-6.7 45.3-18.7s18.7-28.3 18.7-45.3z"/></svg>
 			 &nbsp; Set your schedule
 		</div>
 		<div style="background: #fff;  padding-left:10px; padding-right:10px;">
-			<p> Enter your class for each period. Enter "Free" for periods you don't have classes.</p>
-			<p>This schedule will be saved on your current device/browser and will be wiped when you clear the cache and/or "cookies".</p>
+			<p id="setScheduleDesc desc1"> Enter your class for each period. Enter "Free" for periods you don't have classes.</p>
+			<p id="setScheduleDesc desc2">This schedule will be saved on your current device/browser and will be wiped when you clear the cache and/or "cookies".</p>
 		</div>	
 	</div>
 </div>
@@ -73,7 +73,7 @@ body {
 <div class="row g-3 align-items-center"><div class="col-auto"> <label for="InputPeriod8" class="form-label">Period 8:</label> </div><div class="col-auto"> <input type="text" class="form-control" id="InputPeriod8" name="Period8"> </div></div>
 
 
-  <button type="submit" class="btn btn-primary" style="border-radius:.25rem" onclick="submitClassNames()">Submit</button>
+  <button id="setScheduleSubmitButton" type="submit" class="btn btn-primary" style="border-radius:.25rem" onclick="submitClassNames()">Submit</button>
 </div>
 </body></html>`
 
