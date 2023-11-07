@@ -26,7 +26,7 @@ The Modloader itself will automatically update, but the electron app might need 
 - Accounts? Would also make store better
 - Electron app
 
-#[MOD MAKING GUIDE](/wiki#making-mods)
+# [MOD MAKING GUIDE](https://github.com/PoyOzk/RHS-Modloader/wiki)
 
 ## OLD INSTALLATION METHOD
 
