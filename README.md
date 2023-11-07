@@ -16,28 +16,17 @@ The Modloader itself will automatically update, but the electron app might need 
 - Completely custom theme/plugin support using js/css with headers for name, author, description, and version
 - Saving state of enabled plugins/themes and loading them on site launch
 - CTRL + Y keybind to wipe everything in the case of something going wrong or a mod goes haywire
+- Floating Monaco text editor window (vscode) built in to the site to develop and edit mods in-site
 - As this is unfinished, this is not the full list of features. more will be added soon.
   
 ## Planned (by priority)
 - Store to one-click download mods
-- Text editor allowing you to make and edit files without leaving the site
 - A bunch of smaller mods
-- Timer improvements
+- Timer improvements [Will be pushed to store]
 - Accounts? Would also make store better
 - Electron app
 
-## Making Mods
-Mods were originally uploaded as files, so even if a user is installing from the store, you will need a file name. If this file ends in ``.css`` it is seen as a theme and embedded in the site, and if it ends with ``.js`` it is seen as a plugin, and evaluates javascript.<br>Inside a mod's code, the file will start with this code (optional, but highly reccomended):
-```js
-/**
- * @name Cool Mod
- * @author me 😎
- * @version 1.3
- * @description Bottom Text
-*/
-```
-This allows you to have a proper name, author, version, and description, but making this optional allows everything made before this feature to be supported.
-Not much more to it but i'll add more here soon
+#[MOD MAKING GUIDE](/wiki#making-mods)
 
 ## OLD INSTALLATION METHOD
 
