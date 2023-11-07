@@ -303,7 +303,7 @@ document.querySelector("html body div.container-fluid div.flexbar").insertAdjace
             border-radius: 10px;
             padding: 3px;
             border: 1px solid gray;
-            width: 240px;
+            width: 290px;
             float: left;
             margin: 4px;
           }
