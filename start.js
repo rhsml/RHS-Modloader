@@ -748,7 +748,7 @@ document.forceUploadEditor = forceUploadEditor;
     }
 
 document.editItem = editItem;
-
+/*
 window.addEventListener("beforeunload", function (e) {
   var editorValue = editor.value;
   if (editorValue === "") {
@@ -757,4 +757,4 @@ window.addEventListener("beforeunload", function (e) {
   var confirmationMessage = "The code editor has unsaved code. Are you sure you want to leave?";
   (e || window.event).returnValue = confirmationMessage;
   return confirmationMessage;
-});
+}); */
