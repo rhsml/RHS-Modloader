@@ -183,6 +183,7 @@ function initCodeEditor() {
 
   
 }
+document.initCodeEditor = initCodeEditor;
 
 document.resizeEditor = resizeEditor;
 
