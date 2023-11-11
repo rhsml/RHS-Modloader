@@ -49,9 +49,6 @@ USE THE REGULAR INSTALLATION METHOD IT'S BETTER IN EVERY WAY
 
 ## How this works
 
-> [!NOTE]  
-> I want to preface this by saying this isn't illegal. That's usually the first thought for many when they realize the website has effectively been hacked, but that is ignoring the nature of this exploit: The user has to install this themself. This is client-sided. The school website is not effected in any way due to this, and you are loading the HTML exploit onto your own device. This can definetly be used for malicous intent, but I have zero intention of doing so with this project. I just want to enhance and improve the RHS website, and I have found a way to give that to everyone without a third party computer. Hopefully you do too.
-
 I have found two ways to add HTML onto the RHS website:
 
 - Through the admin website
