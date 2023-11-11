@@ -18,11 +18,17 @@ The Modloader itself will automatically update, but the electron app might need 
 - CTRL + Y keybind to wipe everything in the case of something going wrong or a mod goes haywire
 - Floating Monaco text editor window (vscode) built in to the site to develop and edit mods in-site
 - As this is unfinished, this is not the full list of features. more will be added soon.
-  
-## Planned (by priority)
-- Store to one-click download mods
+
+## Currently working on:
 - A bunch of smaller mods
 - Timer improvements [Will be pushed to store]
+- Store should have some sort of account based verification but accounts get blocked because the domain administrator has to allow sign-ins. I'm not exactly sure how to get around this.
+    - Thinking I do manual review so it works
+
+## Planned (by priority)
+- Groups of mods in folders where the entire folder can be toggled on/off
+- Permanent working link, including weekends
+- Store to one-click download mods
 - Accounts? Would also make store better
 - Electron app
 
