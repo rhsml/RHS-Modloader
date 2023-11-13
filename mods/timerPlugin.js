@@ -41,7 +41,6 @@ if (!window.location.href.includes("admin")) {
       : Object.fromEntries(hex.match(/\d+/g).map((v, i) => [['r', 'g', 'b'][i], +v]));
   };
   
-  function initTimer() {
   if (document.querySelector('table.table.table-borderless')) {
   const table = document.querySelector('table.table.table-borderless');
   const currentTime = new Date();
@@ -315,17 +314,4 @@ if (!window.location.href.includes("admin")) {
     );  
   }
   }
-}
-var isBrowserWindowFocused = true;
-initTimer();
-
-function checkBrowserWindowFocus() {
-  if (!document.hasFocus()) {
-    isBrowserWindowFocused = false;
-  } else if (!isBrowserWindowFocused) {
-    isBrowserWindowFocused = true;
-    initTimer();
-  }
-}
-setInterval(checkBrowserWindowFocus, 1000);
   
