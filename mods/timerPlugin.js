@@ -108,7 +108,6 @@ if (!window.location.href.includes("admin")) {
       "color: #3498db; font-weight: bold;",
       "color: unset;"
     );
-    inject(60,5,"English 10");
   }
   
   function inject(totalSec,passtSec,className) {
