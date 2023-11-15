@@ -1,3 +1,11 @@
+
+
+
+let timerInterval = null;
+function stopTimer() {
+  clearInterval(timerInterval);
+}
+
 if (!window.location.href.includes("admin")) {
   window.animateGradientTransition = function(color1, color2, steps, delay) {
     const gradient = document.getElementById("timerColor");
@@ -17,7 +25,7 @@ if (!window.location.href.includes("admin")) {
     });
   };
   
-  window.createGradient = function(color1, color2, steps) {
+  function createGradient(color1, color2, steps) {
     const result = [];
   
     for (let i = 0; i < steps; i++) {
@@ -40,8 +48,10 @@ if (!window.location.href.includes("admin")) {
       ? { r: parseInt(result[1], 16), g: parseInt(result[2], 16), b: parseInt(result[3], 16) }
       : Object.fromEntries(hex.match(/\d+/g).map((v, i) => [['r', 'g', 'b'][i], +v]));
   };
-  
-  if (document.querySelector('table.table.table-borderless')) {
+
+  var timerSpot = document.querySelector(".daynum");
+  window.initTimer = function() {
+  if (timerSpot) {
   const table = document.querySelector('table.table.table-borderless');
   const currentTime = new Date();
   const currentHour = currentTime.getHours();
@@ -77,7 +87,7 @@ if (!window.location.href.includes("admin")) {
     }
   }
   
-  // Log the result
+  // Log result
   if (isInSession) {
     var className = currentPeriod.name;
     const currentEndTime = new Date();
@@ -100,15 +110,12 @@ if (!window.location.href.includes("admin")) {
       "%c[Timer Plugin] %cSchool is not in session.",
       "color: #3498db; font-weight: bold;",
       "color: unset;"
-    );  
-    inject(60, 5, "English 10");
+    );
+    inject(60,5,"English 10");
   }
   
   function inject(totalSec,passtSec,className) {
-  
-  var timerSpot = document.querySelector(".daynum");
   var dayMsg = document.querySelector(".daymessage");
-  // Set the desired time (8:45)
   var time = totalSec - 1;
   var timeTotalPassed = passtSec
   var html = `
@@ -188,16 +195,16 @@ if (!window.location.href.includes("admin")) {
   
   </style>
   `;
-  var timerCode = `// Credit: Mateusz Rybczonec
-  
+
+  // Credit: Mateusz Rybczonec
   // TIMER SETTINGS
   const FULL_DASH_ARRAY = 790 / 3;
-  const WARNING_THRESHOLD = ${time} / 1.5;
-  const ALERT_THRESHOLD = ${time} / 3;
-  let TIME_LIMIT = ${time}; //Full time
-  let timePassed = ${timeTotalPassed} - 1; //Start at Time:
+  const WARNING_THRESHOLD = (time / 1.5)
+  const ALERT_THRESHOLD = (time / 3)
+  let TIME_LIMIT = time //Full time
+  let timePassed = (timeTotalPassed - 1) //Start at Time
   let timeLeft = TIME_LIMIT;
-  let timerInterval = null;
+  window.timerInterval = timerInterval;
   
   const COLOR_CODES = {
     info: {
@@ -212,8 +219,6 @@ if (!window.location.href.includes("admin")) {
       threshold: ALERT_THRESHOLD
     }
   };
-  
-  let remainingPathColor = COLOR_CODES.info.color;
   
   document.getElementById("app").innerHTML =
   '<div class="base-timer">' +
@@ -240,31 +245,39 @@ if (!window.location.href.includes("admin")) {
       '</g>' +
     '</svg><br>' +
     '<span id="base-timer-label" class="base-timer__label"></span>' +
-    '<span id="class-name">${className}</span>' +
+    '<span id="class-name">' + className + ' </span>' +
   '</div>';
   
   startTimer();
   
-  function onTimesUp() {
-    clearInterval(timerInterval);
-  }
-  
   function startTimer() {
+    var { alert, warning, info } = COLOR_CODES;
+    var timeRemainingElement = document.getElementById("base-timer-path-remaining");
+    if (timeLeft <= alert.threshold) {
+      timeRemainingElement.classList.remove(info.color, warning.color);
+      timeRemainingElement.classList.add(alert.color);
+      animateGradientTransition("#ec1e51", "#eb8514", 200, delay);
+    } else if (timeLeft <= warning.threshold) {
+      timeRemainingElement.classList.remove(info.color, alert.color);
+      timeRemainingElement.classList.add(warning.color);
+      animateGradientTransition("#ec871e", "#f4df31", 200, delay);
+    }
     timePassed = timePassed += 1;
     timeLeft = TIME_LIMIT - timePassed;
     document.getElementById("base-timer-label").innerHTML = formatTime(timeLeft).replace("00:00", "0").replace("00:0", "").replace("00:", "");
     setCircleDasharray();
-    setRemainingPathColor(timeLeft);
+    setRemainingPathColor(timeLeft, 20);
     timerInterval = setInterval(() => {
+      if (document.getElementById("base-timer-label").innerText == 1) {
+        stopTimer();
+        animateGradientTransition("#45cfa0", "#16cd40", 200, 0);
+        initTimer();
+      }
       timePassed = timePassed += 1;
       timeLeft = TIME_LIMIT - timePassed;
       document.getElementById("base-timer-label").innerHTML = formatTime(timeLeft).replace("00:00", "0").replace("00:0", "").replace("00:", "");
       setCircleDasharray();
-      setRemainingPathColor(timeLeft);
-  
-      if (timeLeft === 0) {
-        onTimesUp();
-      }
+      setRemainingPathColor(timeLeft, 20);
     },1000);
   }
   function formatTime(time) {
@@ -278,18 +291,23 @@ if (!window.location.href.includes("admin")) {
   
     return formattedHours + formattedMinutes + ":" + formattedSeconds;
   }
-  function setRemainingPathColor(timeLeft) {
+  function setRemainingPathColor(timeLeft, delay) {
     const { alert, warning, info } = COLOR_CODES;
     var timeRemainingElement = document.getElementById("base-timer-path-remaining");
     if (timeLeft <= alert.threshold) {
       timeRemainingElement.classList.remove(info.color, warning.color);
       timeRemainingElement.classList.add(alert.color);
-      animateGradientTransition("#ec1e51", "#eb8514", 200, 20);
+      animateGradientTransition("#ec1e51", "#eb8514", 200, delay);
     } else if (timeLeft <= warning.threshold) {
       timeRemainingElement.classList.remove(info.color, alert.color);
       timeRemainingElement.classList.add(warning.color);
-      animateGradientTransition("#ec871e", "#f4df31", 200, 20);
+      animateGradientTransition("#ec871e", "#f4df31", 200, delay);
+    } else if (timeLeft <= info.threshold) {
+      timeRemainingElement.classList.remove(alert.color, warning.color);
+      timeRemainingElement.classList.add(info.color);
+      animateGradientTransition("#45cfa0", "#16cd40", 200, delay);
     }
+
   }
   function calculateTimeFraction() {
     const rawTimeFraction = timeLeft / TIME_LIMIT;
@@ -301,8 +319,8 @@ if (!window.location.href.includes("admin")) {
     document
       .getElementById("base-timer-path-remaining")
       .setAttribute("stroke-dasharray",circleDasharray);
-  }`
-  eval(timerCode);
+  }
+  
   document.querySelector(".base-timer__path-remaining").style.transition = "1s linear";
     }
   }
@@ -313,5 +331,21 @@ if (!window.location.href.includes("admin")) {
       "color: unset;"
     );  
   }
+}
+}
+
+var isBrowserWindowFocused = true;
+stopTimer();
+initTimer();
+function checkBrowserWindowFocus() {
+  if (!document.hasFocus()) {
+    isBrowserWindowFocused = false;
+  } else if (!isBrowserWindowFocused) {
+    isBrowserWindowFocused = true;
+    stopTimer();
+    initTimer();
   }
-  
+}
+
+//    Change this interval if you want
+setInterval(checkBrowserWindowFocus, 1000);
