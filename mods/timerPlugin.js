@@ -1,6 +1,3 @@
-
-
-
 let timerInterval = null;
 function stopTimer() {
   clearInterval(timerInterval);
@@ -334,6 +331,7 @@ if (!window.location.href.includes("admin")) {
 }
 }
 
+if (!window.location.href.includes("admin")) {
 var isBrowserWindowFocused = true;
 stopTimer();
 initTimer();
@@ -349,3 +347,4 @@ function checkBrowserWindowFocus() {
 
 //    Change this interval if you want
 setInterval(checkBrowserWindowFocus, 1000);
+}
