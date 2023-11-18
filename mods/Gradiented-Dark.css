@@ -1,0 +1,185 @@
+/**
+ * @name Gradiented Dark
+ * @author Poy Ozkusaksiz
+ * @version 0.1
+ * @description A dark theme with gradiented colors.
+*/
+
+
+html, body {
+  background: linear-gradient(to left, #a80f1f, #9c2055); /*#070707; */
+  }
+  
+  .daynum {
+    background: -webkit-linear-gradient(#a80f1f, #9c2055);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  #timerEmojiText {
+    background: none;
+    -webkit-text-fill-color: white !important;
+  }
+  
+#class-name, #base-timer-label {
+  color: white;
+  -webkit-text-fill-color: white !important;
+}
+
+  .flexsubbar, .flexsubbar .table-borderless {
+  background: #1a1a1a;
+  color: #d9d9d9;
+  }
+  
+  .table-success {
+  --bs-table-bg: #163024;
+  color: #d9d9d9;
+  font-weight: bolder;
+  }
+  .table {
+  color: #d9d9d9;
+  }
+  td[style="width:10%"] {
+  color: #a6a6a6;
+  }
+  
+  .dashboard {
+  background: #0f0f0f;
+  color:white;
+  }
+  
+  .container, .container-fluid, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl {
+  padding-right: 0px;
+  padding-left: 0px;
+  }
+  div.flexsubbar {
+    /* border: 0px solid; */
+    border-image-slice: 1;
+    border-width: 3px;
+    padding:0.5em;
+    border-image-source: linear-gradient(to left, #a80f1f, #9c2055);
+    line-height: 0px;
+  }
+  
+  .flexbar {
+   background: rgb(121,35,47);
+  background: linear-gradient(270deg, #79232f 0%, #870a2a 96%);
+  }
+  
+  
+  
+  /* big bar */
+
+  .dashboard > div:nth-child(1) {
+    border-right-width: 0px;
+    border-left-width: 0px;
+    border-image-slice: 1;
+    border-image-source: linear-gradient(to right, #a80f1f, #a41430);
+  } 
+  div.col-sm-4:nth-child(2) > div:nth-child(1) {
+    border-right-width: 0px;
+    border-left-width: 0px;
+    border-image-slice: 1;
+    border-image-source: linear-gradient(to right, #a41430, #a01a42);
+  } 
+  div.col-sm-4:nth-child(3) > div:nth-child(1) {
+    border-right-width: 0px;
+    border-left-width: 0px;
+    border-image-slice: 1;
+    border-image-source: linear-gradient(to right, #a01a42, #9c2055);
+  }
+
+  
+  div.col-sm-4:nth-child(3) > div:nth-child(1), html body div.container-fluid div.row.g-1 div.col-sm-4 div.flexsubbar {
+  border-left-width: 0px;
+  }
+  
+  
+  .accordion-item {
+  background: #0f0f0f;
+  }
+  
+  .accordion-button {
+  background-color: #1a1a1a;
+  }
+  
+  .accordion-button:not(.collapsed) {
+  background-color: #1e2127;
+  }
+  .text-muted {
+  color: #a6a6a6;
+  }
+  
+  p, b {
+  color: white;
+  }
+  
+  .row > * {
+  padding-right: 0;
+  padding-left: 0;
+  }
+  
+  b, strong, label, h2[style="color:black"], .modal-title, #modSectionTitle {
+    color:white !important;
+  }
+  h2[style="color:black"], h1[style="font-size:1.8rem;color:black"] {
+  font-weight: bold;
+  }
+  .modal-title {
+  font-size: 25px !important;
+  }
+  #themesContainer > div {
+  margin-bottom: 5px;
+  }
+  .modContainer {
+  border: 1px solid #333 !important;
+  }
+  .container {
+border: 1px solid #3b3b3b !important;
+}
+  
+  .modal-content {
+  background: #1a1a1a;
+border-image-slice: 1;
+    border-width: 3px;
+    border-image-source: linear-gradient(to left, #a80f1f, #9c2055);
+    border-radius: 20px;
+}
+#pluginsContainer, #themesContainer {
+color:#dbdbdb !important;;
+border-radius: 10px;
+padding: 20px;
+padding-bottom: 40px;
+background: #0f0f0f;
+}
+
+.modal-header {
+border-bottom: 1px solid transparent;
+}
+.modal-footer {border-top: 1px solid transparent;}
+
+div[style="background: #fff;  padding-left:10px; padding-right:10px;"], #setScheduleDescContainer {
+background: none !important;
+}
+#setScheduleTitleBar {
+padding-top: 20px !important;
+}
+#setScheduleContainer {
+position: relative;
+left: 12px;
+}
+.form-control {
+background-color: #0f0f0f;
+color: grey;
+border:none;
+}
+.form-control:focus {
+background: #1a1a1a;
+color:white;
+}
+.row.g-3.align-items-center {
+margin-bottom: 10px;
+}
+svg[style="top:-2px;position:relative"] {
+fill:white;
+}
