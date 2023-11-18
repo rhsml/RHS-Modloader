@@ -20,16 +20,13 @@ The Modloader itself will automatically update, but the electron app might need 
 - As this is unfinished, this is not the full list of features. more will be added soon.
 
 ## Currently working on:
-- A bunch of smaller mods
-- Timer improvements [Will be pushed to store]
-- Store should have some sort of account based verification but accounts get blocked because the domain administrator has to allow sign-ins. I'm not exactly sure how to get around this.
-    - Thinking I do manual review so it works
+- Timer improvements & Bunch of smaller mods [DONE, Will be pushed to store, check ``/mods``]
+- Store to one-click download mods, the Mod Library [Being designed]
 
 ## Planned (by priority)
 - Groups of mods in folders where the entire folder can be toggled on/off
-- Permanent working link, including weekends
-- Store to one-click download mods
-- Accounts? Would also make store better
+- Store should have some sort of account based verification but accounts get blocked because the domain administrator has to allow sign-ins. I'm not exactly sure how to get around this.
+   - The account based system for store will be postponed until later, the plan to do so is using external email verification via an external account, probably automated with something like firebase.
 - Electron app
 
 # [MOD MAKING GUIDE](https://github.com/PoyOzk/RHS-Modloader/wiki)
