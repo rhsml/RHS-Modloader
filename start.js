@@ -54,7 +54,7 @@ function loadCSSFiles() {
 }
 document.loadCSSFiles = loadCSSFiles;
 
-function forceUpload(code, emulatedFileName) {
+window.forceUpload = function (code, emulatedFileName) {
   const modName = emulatedFileName || 'default.js';
   const state = 0; // Default state
   const metadataProperties = extractMetadata(code);
@@ -65,14 +65,11 @@ function forceUpload(code, emulatedFileName) {
       renderObject(object);
   }
   else {
-  const object = { modName, code, state };
-  localStorage.setItem(modName, JSON.stringify(object));
-  renderObject(object);
+      const object = { modName, code, state };
+      localStorage.setItem(modName, JSON.stringify(object));
+      renderObject(object);
   }
 }
-
-
-document.forceUpload = forceUpload;
 
 function extractMetadata(inputText) {
 const regex = /\/\*\*\s*\n(\s*\*\s*@name\s+(.*?)\s*\n\s*\*\s*@author\s+(.*?)\s*\n\s*\*\s*@version\s+(.*?)\s*\n\s*\*\s*@description\s+(.*?)\s*\n\s*\*\/)/;
