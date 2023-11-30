@@ -21,9 +21,12 @@ html, body {
     -webkit-text-fill-color: white !important;
   }
   
-#class-name, #base-timer-label {
+#base-timer-label {
   color: white;
   -webkit-text-fill-color: white !important;
+}
+#class-name {
+  -webkit-text-fill-color: #c8c8c8 !important;
 }
 
   .flexsubbar, .flexsubbar .table-borderless {
