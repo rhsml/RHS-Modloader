@@ -1,0 +1,23 @@
+[
+  {
+    "name": "Gradiented Dark",
+    "author": "Poy O.",
+    "description": "This is the description for Item 1.",
+    "coverImg": "https://www.placemonkeys.com/900/700",
+    "src": "https://raw.githubusercontent.com/PoyOzk/RHS-Modloader/main/mods/Gradiented-Dark.css"
+  },
+  {
+    "name": "Test Mod 2",
+    "author": "Poy O.",
+    "description": "This is the description for Item 2.",
+    "coverImg": "https://www.placemonkeys.com/900/700?greyscale",
+    "src": "https://raw.githubusercontent.com/PoyOzk/RHS-Modloader/main/mods/lunchRenamer.js"
+  },
+  {
+    "name": "Test Mod 3",
+    "author": "Poy O.",
+    "description": "This is the description for Item 3.",
+    "coverImg": "https://www.placemonkeys.com/900/700?spooky",
+    "src": "https://raw.githubusercontent.com/PoyOzk/RHS-Modloader/main/mods/timerPlugin.js"
+  }
+]
