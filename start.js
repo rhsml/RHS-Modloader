@@ -1,4 +1,4 @@
-if (!localStorage.getItem('sidebar')) {
+if (localStorage.getItem('sidebar') === 'false' || localStorage.getItem('sidebar') === null) {
   
   function toggleState(modName) {
   const object = JSON.parse(localStorage.getItem(modName));
