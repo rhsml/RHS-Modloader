@@ -305,6 +305,9 @@ document.body.appendChild(contentDiv);
     <label for="docTitleInput" class="form-label">Website Title:</label>
     <input type="text" class="form-control" id="docTitleInput">
 
+    <input type="checkbox" class="sidebar" value="sidebar">
+  <label for="sidebar">Use Sidebar Layout</label>
+
     </div>
 
   </div>
@@ -322,6 +325,20 @@ document.body.appendChild(contentDiv);
   </div>
   
   `);
+
+  function sidebarUpdateCheckboxState() {
+    const checkbox = document.querySelector('.sidebar');
+    const isChecked = localStorage.getItem('sidebar') === 'true';
+    checkbox.checked = isChecked;
+}
+
+function sidebarHandleCheckboxChange(event) {
+    const isChecked = event.target.checked;
+    localStorage.setItem('sidebar', isChecked);
+}
+document.querySelector('.sidebar').addEventListener('change', sidebarHandleCheckboxChange);
+
+sidebarUpdateCheckboxState();
 
     const input = document.getElementById('docTitleInput');
     input.value = localStorage.getItem('settings.docTitle') || '';
