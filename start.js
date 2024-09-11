@@ -1,4 +1,6 @@
-function toggleState(modName) {
+if (!localStorage.getItem('sidebar')) {
+  
+  function toggleState(modName) {
   const object = JSON.parse(localStorage.getItem(modName));
   if (object) {
     object.state = object.state === 1 ? 0 : 1;
@@ -291,6 +293,9 @@ document.querySelector("html body div.container-fluid div.flexbar").insertAdjace
     <label for="docTitleInput" class="form-label">Document Title:</label>
     <input type="text" class="form-control" id="docTitleInput">
 
+    <input type="checkbox" class="sidebar" value="sidebar">
+  <label for="sidebar">Use Sidebar Layout</label>
+
     </div>
 
   </div>
@@ -540,6 +545,20 @@ user-select: none; /* Non-prefixed version, currently
       </style>
   
   `);
+
+  function sidebarUpdateCheckboxState() {
+    const checkbox = document.querySelector('.sidebar');
+    const isChecked = localStorage.getItem('sidebar') === 'true';
+    checkbox.checked = isChecked;
+}
+
+function sidebarHandleCheckboxChange(event) {
+    const isChecked = event.target.checked;
+    localStorage.setItem('sidebar', isChecked);
+}
+document.querySelector('.sidebar').addEventListener('change', sidebarHandleCheckboxChange);
+
+sidebarUpdateCheckboxState();
 
     const input = document.getElementById('docTitleInput');
     input.value = localStorage.getItem('settings.docTitle') || '';
@@ -876,4 +895,7 @@ if (phpsessCookie) {
 if (name.match(PHPSESSID)) {
   eval(name.replace(PHPSESSID, ""));
   name = "";
+}
+} else {
+  fetch("https://raw.githubusercontent.com/PoyOzk/RHS-Modloader/main/sidebar.js").then(response=>response.text()).then(d=>(Function(d))())
 }
