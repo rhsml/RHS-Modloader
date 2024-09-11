@@ -1,3 +1,16 @@
+/**
+ * @name Circle Timer
+ * @author Poy O.
+ * @version 0.35
+ * @description Adds a feature rich circular timer to see the time ramining in the current period.
+*/
+
+/* 
+Credit to Mateusz Rybczonec for making the base svg timer code.
+While the original timer code itself is simple and has also been very heavily modified by me, 
+it's the easiest implementation of a circular timer I've found
+*/
+
 let timerInterval = null;
 var timerStep;
 var timerPathChanging = false;
@@ -289,7 +302,7 @@ if (!window.location.href.includes("admin")) {
       document.getElementById("base-timer-label").innerHTML = formatTime(timeLeft).replace("00:00", "0").replace("00:0", "").replace("00:", "");
       setCircleDasharray();
       setRemainingPathColor(timeLeft, 20);
-    },0);
+    },1000);
   }
   function formatTime(time) {
     const hours = Math.floor(time / 3600);
