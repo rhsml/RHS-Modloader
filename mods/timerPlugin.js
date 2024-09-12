@@ -2,7 +2,7 @@
  * @name Circle Timer
  * @author Poy O.
  * @version 0.35
- * @description Adds a feature rich circular timer to see the time ramining in the current period.
+ * @description> A simple circular timer, showing the amount of time left in class.
 */
 
 /* 
