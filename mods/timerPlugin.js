@@ -1,8 +1,8 @@
 /**
  * @name Circle Timer
- * @author Poy O.
- * @version 0.35
- * @description> A simple circular timer, showing the amount of time left in class.
+ * @author Poy Ozkusaksiz
+ * @version 0.36
+ * @description Adds a feature rich circular timer to see the time ramining in the current period.
 */
 
 /* 
@@ -132,6 +132,7 @@ if (!window.location.href.includes("admin")) {
     var totalSec = (((elapsedMinutes + minutesLeft) * 60) + (elapsedSeconds + secondsLeft));
     inject(totalSec, passtSec, className);
   } else {
+    inject(10000, 150, "className");
     console.info(
       "%c[Timer Plugin] %cSchool is not in session.",
       "color: #3498db; font-weight: bold;",
@@ -143,7 +144,7 @@ if (!window.location.href.includes("admin")) {
   var dayMsg = document.querySelector(".daymessage");
   var time = totalSec - 1;
   timerSpot.innerHTML = `
-  <div style="height: 38vh;" class="parentTimerDiv">
+  <div class="parentTimerDiv">
   </div>
   <style> div.daynum {line-height: 20%;} .accordion-button {padding: 0.60rem 0.85rem;}</style>
   `;
@@ -154,12 +155,23 @@ if (!window.location.href.includes("admin")) {
   div.innerHTML = `
   <div id="app"></div>
   <style>
+
+  @media (max-height: 800px) {
+  .base-timer {
+      transform: scale(0.9);
+      margin-top: -10px;
+  }
+      .parentTimerDiv {
+  height: 40vh !important;
+  }
+}
+
   .parentTimerDiv {
   overflow: hidden;
     font-family: monospace;
     font-weight: normal;
     display: grid;
-    height: 100vh;
+    height: 24vh;
     place-items: center;
     color: black;
   }
