@@ -620,8 +620,9 @@ function loadObjects() {
   for (let i = 0; i < localStorage.length; i++) {
       const key = localStorage.key(i);
       var object;
-      if (key.endsWith(".css") || key.endsWith(".js")) {var object = JSON.parse(localStorage.getItem(key));}
+      if (key.endsWith(".css") || key.endsWith(".js")) {var object = JSON.parse(localStorage.getItem(key));
       renderObject(object);
+      }
       if (object.state === 1 && key.endsWith('.js')) {
           try {
               const pluginEval = new Function(object.code);
