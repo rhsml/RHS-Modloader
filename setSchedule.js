@@ -1,3 +1,5 @@
+autoRefresh = false;
+
 document.documentElement.innerHTML = `<!DOCTYPE html>
 <html><head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
