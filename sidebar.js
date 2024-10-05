@@ -1,3 +1,5 @@
+autoRefresh = false;
+
 function toggleState(modName) {
   const object = JSON.parse(localStorage.getItem(modName));
   if (object) {
