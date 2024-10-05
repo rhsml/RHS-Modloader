@@ -1,4 +1,4 @@
-autoRefresh = false;
+autoRefresh = function() {};
 
 if (localStorage.getItem('sidebar') === 'false' || localStorage.getItem('sidebar') === null) {
   
