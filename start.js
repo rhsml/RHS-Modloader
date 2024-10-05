@@ -1,3 +1,5 @@
+autoRefresh = false;
+
 if (localStorage.getItem('sidebar') === 'false' || localStorage.getItem('sidebar') === null) {
   
   function toggleState(modName) {
