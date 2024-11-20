@@ -1,6 +1,6 @@
 /* start.js */
 
-autoRefresh = function () {};
+autoRefresh = function () { };
 
 function toggleState(modName) {
   const object = JSON.parse(localStorage.getItem(modName));
@@ -73,7 +73,7 @@ function loadCSSFiles() {
 
 document.loadCSSFiles = loadCSSFiles;
 
-window.forceUpload = function(code, emulatedFileName) {
+window.forceUpload = function (code, emulatedFileName) {
   const modName = emulatedFileName || "default.js";
   const state = 0; // Default state
   const metadataProperties = extractMetadata(code);
@@ -1308,22 +1308,22 @@ function createFlexbox(groupTitles, hexArrays) {
 function updateCheckedState(groupTitle, hex, colorPicker) {
   if (colorPicker) {
     document
-    .querySelector("#child-color-custom")
-    .parentElement.classList.add("checked");
+      .querySelector("#child-color-custom")
+      .parentElement.classList.add("checked");
   } else {
-  
-  const groupContainer = document.getElementById(
-    groupTitle.toLowerCase()
-  );
 
-  const allChildren = groupContainer.querySelectorAll(".child");
-  allChildren.forEach((child) => child.classList.remove("checked"));
+    const groupContainer = document.getElementById(
+      groupTitle.toLowerCase()
+    );
+
+    const allChildren = groupContainer.querySelectorAll(".child");
+    allChildren.forEach((child) => child.classList.remove("checked"));
 
     const checkedChild = groupContainer
       .querySelector(`input[value="${hex}"]`)
       .parentElement.querySelector(".child");
     checkedChild.classList.add("checked");
-}
+  }
 }
 
 function saveToLocalStorage(groupTitle, color) {
@@ -1366,7 +1366,7 @@ function loadFromLocalStorage(groupTitles, hexArrays) {
 const groupTitles = ["Style", "Color"];
 const hexArrays = [
   ["#ffffff", "#000000", "#b8b8b8", "#333333"],
-  [ "none",
+  ["none",
     "d44c4c",
     "d1604d",
     "c97318",
@@ -1489,12 +1489,12 @@ function updateStyle() {
     color: #ece7df;
   }
 
-  #base-timer-label {
+  span#base-timer-label {
     color: white;
     -webkit-text-fill-color: white !important;
   }
 
-  #class-name {
+  span#class-name {
     -webkit-text-fill-color: #c8c8c8 !important;
   }
 
@@ -1508,12 +1508,11 @@ function updateStyle() {
   }`
     : "";
 
-    const styles2 = (JSON.parse(localStorage.selectedColors)[1][1] === "#b8b8b8" || JSON.parse(localStorage.selectedColors)[1][1] === "#333333")
+  const styles2 = (JSON.parse(localStorage.selectedColors)[1][1] === "#b8b8b8" || JSON.parse(localStorage.selectedColors)[1][1] === "#333333")
     ? `:root {
     --website-base1: hsl(var(--website-color_h), var(--website-color_s), calc(var(--website-color_l) + 21.6%));
     --border-color: #1d1d1d !important;
 }
-
 
   .flexbar {
     background: linear-gradient(
@@ -1606,7 +1605,7 @@ function updateStyle() {
     : "";
 
 
-    const styles3 = JSON.parse(localStorage.selectedColors)[0][1].length > 5
+  const styles3 = JSON.parse(localStorage.selectedColors)[0][1].length > 5
     ? `
     :root {
 
@@ -1730,23 +1729,23 @@ const colorPicker = document.getElementById('colorPicker');
 colorPicker.addEventListener('input', handleColorInput);
 
 function handleColorInput(e) {
-    const color = e.target.value;
-    const [r, g, b] = color.match(/\w\w/g).map(x => parseInt(x, 16));
-    const hsl = rgbToHsl(r, g, b);
-    document.documentElement.style.setProperty('--website-color_h', hsl[0]);
-    document.documentElement.style.setProperty('--website-color_s', hsl[1] + '%');
-    document.documentElement.style.setProperty('--website-color_l', hsl[2] + '%');
+  const color = e.target.value;
+  const [r, g, b] = color.match(/\w\w/g).map(x => parseInt(x, 16));
+  const hsl = rgbToHsl(r, g, b);
+  document.documentElement.style.setProperty('--website-color_h', hsl[0]);
+  document.documentElement.style.setProperty('--website-color_s', hsl[1] + '%');
+  document.documentElement.style.setProperty('--website-color_l', hsl[2] + '%');
 }
 
 function addColorPicker(defaultColor = "#ffffff") {
-    const newPickerId = `colorPicker-${Date.now()}`;
-    document.querySelector("#color").insertAdjacentHTML(
-        "beforeend",
-        `<input type="color" id="${newPickerId}" value="${defaultColor}" />`
-    );
+  const newPickerId = `colorPicker-${Date.now()}`;
+  document.querySelector("#color").insertAdjacentHTML(
+    "beforeend",
+    `<input type="color" id="${newPickerId}" value="${defaultColor}" />`
+  );
 
-    const newPicker = document.getElementById(newPickerId);
-    newPicker.addEventListener('input', handleColorInput);
+  const newPicker = document.getElementById(newPickerId);
+  newPicker.addEventListener('input', handleColorInput);
 }
 
 function setHexToHslVariables(hex) {
@@ -1758,20 +1757,20 @@ function setHexToHslVariables(hex) {
 }
 
 function rgbToHsl(r, g, b) {
-    r /= 255, g /= 255, b /= 255;
-    const max = Math.max(r, g, b), min = Math.min(r, g, b);
-    let h, s, l = (max + min) / 2;
-    if (max == min) {
-        h = s = 0;
-    } else {
-        const d = max - min;
-        s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
-        switch (max) {
-            case r: h = (g - b) / d + (g < b ? 6 : 0); break;
-            case g: h = (b - r) / d + 2; break;
-            case b: h = (r - g) / d + 4; break;
-        }
-        h /= 6;
+  r /= 255, g /= 255, b /= 255;
+  const max = Math.max(r, g, b), min = Math.min(r, g, b);
+  let h, s, l = (max + min) / 2;
+  if (max == min) {
+    h = s = 0;
+  } else {
+    const d = max - min;
+    s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+    switch (max) {
+      case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+      case g: h = (b - r) / d + 2; break;
+      case b: h = (r - g) / d + 4; break;
     }
-    return [Math.round(h * 360), Math.round(s * 100), Math.round(l * 100)];
+    h /= 6;
+  }
+  return [Math.round(h * 360), Math.round(s * 100), Math.round(l * 100)];
 }
