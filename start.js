@@ -1499,6 +1499,11 @@ function updateStyle(first = 0) {
     -webkit-text-fill-color: #c8c8c8 !important;
   }
 
+  .accordion-item:last-child div.accordion-body {
+    background: #181818;
+    border-radius: 0 0 25px 25px !important;
+  }
+
   .accordion-button::after {
     filter: brightness(1000%)
   }`
