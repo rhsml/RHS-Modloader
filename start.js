@@ -1291,7 +1291,6 @@ function createFlexbox(groupTitles, hexArrays) {
           saveToLocalStorage(groupTitle, hex);
           updateCheckedState(groupTitle, hex);
           updateStyle()
-          setHexToHslVariables(hex)
         }
       });
 
@@ -1386,7 +1385,7 @@ const hexArrays = [
 
 createFlexbox(groupTitles, hexArrays);
 
-function updateStyle(first = 0) {
+function updateStyle() {
   const styles1 = (JSON.parse(localStorage.selectedColors)[1][1] === "#000000" || JSON.parse(localStorage.selectedColors)[1][1] === "#333333")
     ? `:root {
     --website-base1: hsl(var(--website-color_h), var(--website-color_s), calc(var(--website-color_l) + 21.6%));
@@ -1650,7 +1649,7 @@ div.daynum {
 .table-success {
     --bs-table-bg: hsla(var(--website-color_h), var(--website-color_s), var(--website-color_l), 0.3)
 }`: "";
-if (first) setHexToHslVariables(JSON.parse(localStorage.selectedColors)[0][1])
+  setHexToHslVariables(JSON.parse(localStorage.selectedColors)[0][1])
   document.getElementById("dynamic-styles").textContent = styles1 + styles2 + styles3;
 }
 
@@ -1725,7 +1724,7 @@ background-color: var(--checked-color, #ffffff); /* default color when selected 
     updateCheckedState("color", color, 1);
   });
 });
-updateStyle(1)
+updateStyle()
 document.querySelector("#color").insertAdjacentHTML("beforeend", `<input type="color" id="colorPicker" value="#0055ff" />`)
 const colorPicker = document.getElementById('colorPicker');
 colorPicker.addEventListener('input', handleColorInput);
