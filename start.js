@@ -288,7 +288,7 @@ if (element) {
             <button type="button" id="saveButton" onclick="saveCodeEditor()" class="btn btn-outline-success"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-save" viewBox="0 0 16 16">
               <path d="M2 1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H9.5a1 1 0 0 0-1 1v7.293l2.646-2.647a.5.5 0 0 1 .708.708l-3.5 3.5a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L7.5 9.293V2a2 2 0 0 1 2-2H14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h2.5a.5.5 0 0 1 0 1H2z"></path>
             </svg><span class="visually-hidden">Save</span></button>
-            </div><div id="editorContainer"></div></div>`
+            </div><div id="editorContainer"></div></div><style id="dynamic-styles"></style>`
   );
 
   document
@@ -314,10 +314,14 @@ if (element) {
 
           <span id="uiSelections">
           <div class="btn-group" role="group" aria-label="UI Selections">
-          <input type="radio" class="btn-check" name="btnradio" id="btnradioSettings" autocomplete="off" onclick='pluginsContainer.style.display = "unset";themesContainer.style.display = "unset";settingsContainer.style.display = "none"' checked>
+
+          <input type="radio" class="btn-check" name="btnradio" id="btnradioStyle" autocomplete="off" onclick='styleContainer.style.display = "unset";pluginsContainer.style.display = "none";themesContainer.style.display = "none";settingsContainer.style.display = "none"' checked>
+          <label class="btn btn-outline-secondary" for="btnradioStyle">Style</label>
+
+          <input type="radio" class="btn-check" name="btnradio" id="btnradioSettings" autocomplete="off" onclick='styleContainer.style.display = "none";pluginsContainer.style.display = "unset";themesContainer.style.display = "unset";settingsContainer.style.display = "none"' checked>
           <label class="btn btn-outline-secondary" for="btnradioSettings">Mods</label>
           
-          <input type="radio" class="btn-check" name="btnradio" id="btnradioMods" onclick='pluginsContainer.style.display = "none";themesContainer.style.display = "none";settingsContainer.style.display = "unset"' autocomplete="off">
+          <input type="radio" class="btn-check" name="btnradio" id="btnradioMods" onclick='styleContainer.style.display = "none";pluginsContainer.style.display = "none";themesContainer.style.display = "none";settingsContainer.style.display = "unset"' autocomplete="off">
           <label class="btn btn-outline-secondary" for="btnradioMods">Settings</label>
           </div>
           </span>
@@ -358,6 +362,9 @@ if (element) {
     <input type="checkbox" class="sidebar" value="sidebar">
   <label for="sidebar">Use Sidebar Layout</label>
 
+    </div>
+
+    <div style="display:none" id="styleContainer">
     </div>
 
   </div>
@@ -604,6 +611,117 @@ left: 30px;
 user-select: none; /* Non-prefixed version, currently
                                 supported by Chrome and Opera */
 }
+
+#styleContainer {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      .group-title {
+        display: flex;
+        align-items: center;
+        margin-top: 20px;
+        width: 100%;
+      }
+
+      .group-title::before,
+      .group-title::after {
+        content: "";
+        flex-grow: 1;
+        border-bottom: 2px solid #ccc;
+        margin: 0 10px;
+      }
+
+      .option-wrapper {
+        display: inline-block;
+        position: relative;
+      }
+
+      .child {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        border: 2px solid transparent;
+        position: relative;
+        background: var(--child-gradient1, red);
+        cursor: pointer;
+        margin-bottom: 10px;
+        display: inline-block;
+      }
+
+      .radio-input {
+        position: absolute;
+        opacity: 0;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        margin: 0;
+        cursor: pointer;
+        z-index: 1;
+      }
+
+      .child.checked {
+        border: 2px solid black;
+        box-shadow: 0 0 0 2px white, 0 0 0 4px black;
+      }
+
+      .child.checked::after {
+        content: "✔";
+        font-size: 12px;
+        color: white;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        display: block;
+        text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+      }
+
+      .color-picker {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        border: 2px solid #ccc;
+        cursor: pointer;
+        position: relative;
+        display: inline-block;
+        overflow: hidden;
+        background: linear-gradient(45deg, #fff, #f0f0f0);
+      }
+
+      .color-picker input[type="color"] {
+        position: absolute;
+        top: -5px;
+        left: -5px;
+        width: calc(100% + 10px);
+        height: calc(100% + 10px);
+        border: none;
+        opacity: 0;
+        cursor: pointer;
+      }
+
+      .color-picker.checked {
+        border: 2px solid black;
+        box-shadow: 0 0 0 2px white, 0 0 0 4px black;
+      }
+
+      .color-picker.checked::after {
+        content: "✔";
+        font-size: 12px;
+        color: white;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        display: block;
+        text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+      }
+
+      .child-group {
+        width: 100%;
+      }
       </style>
   
   `
@@ -1019,6 +1137,7 @@ if (
   document.body.appendChild(sidebar);
 
   document.body.style.width = "133.4%";
+  document.body.style.overflow = "hidden";
   document.querySelector("#rhsModal").style.width = "0%";
 
   document
@@ -1081,4 +1200,574 @@ if (
     document.querySelector(".menu-rhs").click();
   });
   delete sidebar;
+}
+function hexToHSL(hex) {
+  hex = hex.replace("#", "");
+  const r = parseInt(hex.substring(0, 2), 16) / 255;
+  const g = parseInt(hex.substring(2, 4), 16) / 255;
+  const b = parseInt(hex.substring(4, 6), 16) / 255;
+
+  const max = Math.max(r, g, b);
+  const min = Math.min(r, g, b);
+  const delta = max - min;
+
+  let h = 0;
+  if (delta) {
+    if (max === r) h = ((g - b) / delta) % 6;
+    else if (max === g) h = (b - r) / delta + 2;
+    else h = (r - g) / delta + 4;
+    h *= 60;
+  }
+  if (h < 0) h += 360;
+
+  const l = (max + min) / 2;
+  const s = delta === 0 ? 0 : delta / (1 - Math.abs(2 * l - 1));
+
+  return {
+    h: h.toFixed(2),
+    s: (s * 100).toFixed(2),
+    l: (l * 100).toFixed(2),
+  };
+}
+
+function createGradient(element, hex) {
+  if (element.id == "child-color-custom") element = element.parentElement;
+  const { h, s, l } = hexToHSL(hex);
+
+  // Ensure we set CSS properties correctly.
+  element.style.setProperty("--child-hex_h", h);
+  element.style.setProperty("--child-hex_s", `${s}%`);
+  element.style.setProperty("--child-hex_l", `${l}%`);
+
+  // Create gradients based on HSL values.
+  element.style.setProperty(
+    "--child-gradient1",
+    `hsl(calc(var(--child-hex_h) + 32), calc(var(--child-hex_s) + 9%), calc(var(--child-hex_l) + 8%))`
+  );
+  element.style.setProperty(
+    "--child-gradient2",
+    `hsl(calc(var(--child-hex_h) - 48), calc(var(--child-hex_s) + 3%), calc(var(--child-hex_l) + 7%))`
+  );
+
+  // Apply background gradient.
+  element.style.background = `linear-gradient(45deg, var(--child-gradient1), var(--child-gradient2))`;
+}
+
+function createFlexbox(groupTitles, hexArrays) {
+  const parent = document.getElementById("styleContainer");
+  parent.innerHTML = "";
+
+  groupTitles.forEach((groupTitle, groupIndex) => {
+    const groupContainer = document.createElement("div");
+    groupContainer.setAttribute("id", groupTitle.toLowerCase());
+    groupContainer.setAttribute("class", "child-group");
+
+    const groupTitleElement = document.createElement("div");
+    groupTitleElement.className = "group-title";
+    groupTitleElement.innerHTML = `<span>${groupTitle}</span>`;
+    groupContainer.appendChild(groupTitleElement);
+
+    const hexArray = hexArrays[groupIndex];
+    hexArray.forEach((hex, childIndex) => {
+      const bool = hex == "#none";
+      const wrapper = document.createElement("div");
+      wrapper.className = "option-wrapper";
+
+      const radio = document.createElement("input");
+      radio.type = "radio";
+      radio.name = groupTitle.toLowerCase();
+      radio.id = `child-${groupTitle.toLowerCase()}-${childIndex}`;
+      radio.className = "radio-input";
+      if (!bool) radio.value = hex;
+
+      const child = document.createElement("div");
+      child.className = "child";
+
+      if (!bool) createGradient(child, hex);
+
+      radio.addEventListener("change", (e) => {
+        if (e.target.checked) {
+          console.log(`Selected: ${hex} ${groupTitle}`);
+          saveToLocalStorage(groupTitle, hex);
+          updateCheckedState(groupTitle, hex);
+          updateStyle()
+          setHexToHslVariables(hex)
+        }
+      });
+
+      wrapper.appendChild(radio);
+      wrapper.appendChild(child);
+      groupContainer.appendChild(wrapper);
+    });
+
+    parent.appendChild(groupContainer);
+  });
+
+  loadFromLocalStorage(groupTitles, hexArrays);
+}
+
+function updateCheckedState(groupTitle, hex, colorPicker) {
+  if (colorPicker) {
+    document
+    .querySelector("#child-color-custom")
+    .parentElement.classList.add("checked");
+  } else {
+  
+  const groupContainer = document.getElementById(
+    groupTitle.toLowerCase()
+  );
+
+  const allChildren = groupContainer.querySelectorAll(".child");
+  allChildren.forEach((child) => child.classList.remove("checked"));
+
+    const checkedChild = groupContainer
+      .querySelector(`input[value="${hex}"]`)
+      .parentElement.querySelector(".child");
+    checkedChild.classList.add("checked");
+}
+}
+
+function saveToLocalStorage(groupTitle, color) {
+  let selectedData =
+    JSON.parse(localStorage.getItem("selectedColors")) || [];
+  const groupIndex = selectedData.findIndex(
+    (item) => item[0] === groupTitle
+  );
+
+  if (groupIndex !== -1) {
+    selectedData[groupIndex][1] = color;
+  } else {
+    selectedData.push([groupTitle, color]);
+  }
+
+  localStorage.setItem("selectedColors", JSON.stringify(selectedData));
+}
+
+function loadFromLocalStorage(groupTitles, hexArrays) {
+  const selectedData =
+    JSON.parse(localStorage.getItem("selectedColors")) || [];
+
+  selectedData.forEach((item) => {
+    const groupTitle = item[0];
+    const selectedColor = item[1];
+    const groupContainer = document.getElementById(
+      groupTitle.toLowerCase()
+    );
+
+    if (groupContainer) {
+      const radio = groupContainer.querySelector(`input[value="${selectedColor}"]`);
+      if (radio) {
+        radio.checked = true;
+        updateCheckedState(groupTitle, selectedColor);
+      }
+    }
+  });
+}
+
+const groupTitles = ["Style", "Color"];
+const hexArrays = [
+  ["#ffffff", "#000000", "#b8b8b8", "#333333"],
+  [ "none",
+    "d44c4c",
+    "d1604d",
+    "c97318",
+    "f3bd59",
+    "59f3ba",
+    "18c99d",
+    "135e58",
+    "4d549e",
+    "5966f3",
+    "8800ff",
+    "f359a1",
+    "ff0080",
+    "4b0725",
+  ].map((hex) => `#${hex.replace("#", "")}`),
+];
+
+createFlexbox(groupTitles, hexArrays);
+
+function updateStyle(first = 0) {
+  const styles1 = (JSON.parse(localStorage.selectedColors)[1][1] === "#000000" || JSON.parse(localStorage.selectedColors)[1][1] === "#333333")
+    ? `:root {
+    --website-base1: hsl(var(--website-color_h), var(--website-color_s), calc(var(--website-color_l) + 21.6%));
+
+    --daynum-dark: hsl(
+    calc(var(--website-color_h) + 8), 
+    calc(var(--website-color_s) + 20%), 
+    calc(var(--website-color_l) - 4.2%));
+    
+    --flexbar-dark: hsl(
+    calc(var(--website-color_h)), 
+    calc(var(--website-color_s) - 23%), 
+    calc(var(--website-color_l) - 7.2%));
+
+    --text-dark: hsl(
+    calc(var(--website-color_h) - 2), 
+    calc(var(--website-color_s) - 17%), 
+    calc(var(--website-color_l) + 23.8%));
+    
+    --border-dark: hsl(
+    calc(var(--website-color_h) - 2), 
+    calc(var(--website-color_s) - 5%), 
+    calc(var(--website-color_l)));
+    
+    --success-dark: hsla(
+    calc(var(--website-color_h) + 2), 
+    calc(var(--website-color_s) + 32%), 
+    calc(var(--website-color_l) + 13.8%), 0.2);
+    
+    --flexbar-outline: #741717;
+}
+
+  body {
+    background-color: #0f0f0f;
+  }
+
+  .flexsubbar,
+  .accordion-button,
+  .accordion-item {
+    background-color: #181818;
+  }
+
+  .daynum {
+    color: var(--daynum-dark, #dd4545) !important;
+  }
+
+  .table-success {
+    --bs-table-bg: #1d2f27;
+  }
+
+
+  .accordion-button:not(.collapsed) {
+    color: #0c63e4;
+    background-color: #1b2635;
+  }
+
+  .table,
+  .table-success {
+    color: #ece7df;
+  }
+
+  .flexbar {
+    background-color: var(--flexbar-dark, #9e1825);
+  }
+  
+  .table-success {
+    --bs-table-bg: var(--success-dark, #1d2f27)
+  }
+
+
+  div[style="background: #fff;  padding-left:10px; padding-right:10px;"] {
+    background: #181818 !important;
+  }
+
+  .form-control {
+    color: #f0ebd6;
+    border: 1px solid #161b20;
+  }
+
+  .flexsubbar {
+    border-bottom: 3px solid var(--border-color, var(--border-dark, #8e3232));
+    border-top: 3px solid var(--border-color, var(--border-dark, #8e3232));
+    color: var(--text-dark, #e17575);
+  }
+
+  .accordion-button {
+    color: #ece7df !important;
+  }
+
+
+  .dashboard,
+  .form-control {
+    background: #181818;
+  }
+
+  .accordion-button {
+    color: #ece7df;
+  }
+
+  body {
+    color: #ece7df;
+  }
+
+  #base-timer-label {
+    color: white;
+    -webkit-text-fill-color: white !important;
+  }
+
+  #class-name {
+    -webkit-text-fill-color: #c8c8c8 !important;
+  }
+
+  .accordion-button::after {
+    filter: brightness(1000%)
+  }`
+    : "";
+
+    const styles2 = (JSON.parse(localStorage.selectedColors)[1][1] === "#b8b8b8" || JSON.parse(localStorage.selectedColors)[1][1] === "#333333")
+    ? `:root {
+    --website-base1: hsl(var(--website-color_h), var(--website-color_s), calc(var(--website-color_l) + 21.6%));
+    --border-color: #1d1d1d !important;
+}
+
+
+  .flexbar {
+    background: linear-gradient(
+      8deg,
+      var(--flexbar-gradient1, rgba(134, 15, 15, 1)) 0%,
+      var(--flexbar-gradient2, rgba(140, 42, 42, 1)) 100%
+    ) !important;
+    border-radius: 0 0 15px 15px;
+    outline: 2px solid var(--flexbar-outline, #c69191);
+    margin-bottom: 15px;
+    box-shadow: inset 0 0 25px 2px #ffffff1c, 0 5px 10px rgba(0, 0, 0, 0.2);
+  }
+
+  .container-fluid {
+    padding-right: 0px;
+    padding-left: 0px;
+  }
+
+  div.container-fluid:nth-child(2) {
+    width: 100%;
+    padding-right: var(--bs-gutter-x, 0.75rem);
+    padding-left: var(--bs-gutter-x, 0.75rem);
+  }
+
+
+  .flexsubbar {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+    border-top: none;
+    border-radius: 25px 25px 0px 0px;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .col-sm-4 {
+    filter: drop-shadow(0 5px 5px #0000000f);
+    margin-bottom: 15px;
+  }
+
+  @media (min-width: 576px) {
+    .col-sm-4 {
+      width: 32.33333%;
+      margin-left: 0.8%;
+    }
+  }
+
+  .dashboard {
+    border-radius: 25px;
+  }
+
+
+  .table > :not(caption) > * > :nth-child(1) {
+    border-radius: 14px 0 0 14px;
+  }
+  .table > :not(caption) > * > :nth-child(4) {
+    border-radius: 0 14px 14px 0;
+  }
+
+  .accordion-flush .accordion-item:last-child button.collapsed {
+    border-radius: 0 0 25px 25px !important;
+  }
+
+  .accordion-item:last-child {
+    background: transparent;
+  }
+
+  .accordion-item:last-child .accordion-body {
+    background: white;
+    border-radius: 0 0 25px 25px !important;
+  }
+
+  .daynum {
+    background: linear-gradient(
+      28deg,
+      var(--daynum-gradient1, rgba(196, 62, 57, 1)) 0%,
+      var(--daynum-gradient2, rgba(161, 29, 77, 1)) 100%
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .dashboard > h1:nth-child(3):after {
+    content: " 🎉";
+  }
+
+  #class-name, #base-timer-label {
+    -webkit-text-fill-color: black !important;
+  }`
+    : "";
+
+
+    const styles3 = JSON.parse(localStorage.selectedColors)[0][1].length > 5
+    ? `
+    :root {
+
+    
+    --website-color_h: 224;
+    --website-color_s: 100%;
+    --website-color_l: 50%;
+    
+
+
+    --website-base1: hsl(var(--website-color_h), var(--website-color_s), calc(var(--website-color_l) + 21.6%));
+
+    --website-base2: hsl(var(--website-color_h), var(--website-color_s), calc(var(--website-color_l) - 18.2%));
+    --flexbar-outline: hsl(
+    var(--website-color_h), 
+    var(--website-color_s), 
+    calc(var(--website-color_l) - 13.2%)) !important;
+    
+    --flexbar-gradient1: hsl(calc(var(--website-color_h) + 14), calc(var(--website-color_s) + 10%), calc(var(--website-color_l) + 5%));
+    --flexbar-gradient2: hsl(calc(var(--website-color_h) - 10), var(--website-color_s), calc(var(--website-color_l) + 2%));
+    
+    --daynum-gradient1: hsl(calc(var(--website-color_h) + 32), calc(var(--website-color_s) + 9%), calc(var(--website-color_l) + 8%));
+    --daynum-gradient2: hsl(calc(var(--website-color_h) - 32), calc(var(--website-color_s) + 3%), calc(var(--website-color_l) + 7%));
+}
+
+.flexbar {
+    background-color: var(--website-base2);
+}
+
+.flexsubbar {
+    border-top-color: hsl(var(--website-color_h), var(--website-color_s), var(--website-color_l));
+    border-bottom-color: hsl(var(--website-color_h), var(--website-color_s), var(--website-color_l));
+    color: var(--website-base2);
+}
+
+div.daynum {
+    color: var(--website-base2);
+}
+
+.table-success {
+    --bs-table-bg: hsla(var(--website-color_h), var(--website-color_s), var(--website-color_l), 0.3)
+}`: "";
+if (first) setHexToHslVariables(JSON.parse(localStorage.selectedColors)[0][1])
+  document.getElementById("dynamic-styles").textContent = styles1 + styles2 + styles3;
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  const parent = document.getElementById("color");
+  if (!parent) {
+    console.error('Parent element "#color" not found!');
+    return;
+  }
+
+  const wrapper = document.createElement("div");
+  wrapper.className = "option-wrapper";
+
+  const colorInput = document.createElement("input");
+  colorInput.type = "color";
+  colorInput.name = "color";
+  colorInput.id = "child-color-custom";
+  colorInput.className = "radio-input";
+  colorInput.value = "#ffffff";
+
+  const style = `
+.radio-input {
+position: relative;
+width: 30px;
+height: 30px;
+border-radius: 50%;
+border: 2px solid #ccc;
+cursor: pointer;
+padding: 0;
+appearance: none;
+background-color: transparent;
+}
+.radio-input:focus {
+outline: none;
+box-shadow: 0 0 0 3px rgba(0, 120, 255, 0.5);
+}
+.radio-input.selected {
+border-color: #007bff;
+background-color: var(--checked-color, #ffffff); /* default color when selected */
+}
+`;
+
+  if (!document.getElementById("custom-radio-style")) {
+    const styleElement = document.createElement("style");
+    styleElement.id = "custom-radio-style";
+    styleElement.innerHTML = style;
+    document.head.appendChild(styleElement);
+  }
+
+  const child = document.createElement("div");
+  child.className = "child";
+
+  child.appendChild(colorInput);
+  wrapper.appendChild(child);
+
+  parent.appendChild(wrapper);
+
+  colorInput.addEventListener("input", (e) => {
+    const color = e.target.value;
+
+    // console.log(`Selected custom color: ${color}`);
+    createGradient(e.target, color);
+
+    saveToLocalStorage("Color", color);
+
+    const allInputs = parent.querySelectorAll("input[type='color']");
+    allInputs.forEach((input) => input.classList.remove("selected"));
+
+    colorInput.classList.add("selected");
+
+    document.documentElement.style.setProperty("--checked-color", color);
+    updateCheckedState("color", color, 1);
+  });
+});
+updateStyle(1)
+document.querySelector("#color").insertAdjacentHTML("beforeend", `<input type="color" id="colorPicker" value="#0055ff" />`)
+const colorPicker = document.getElementById('colorPicker');
+colorPicker.addEventListener('input', handleColorInput);
+
+function handleColorInput(e) {
+    const color = e.target.value;
+    const [r, g, b] = color.match(/\w\w/g).map(x => parseInt(x, 16));
+    const hsl = rgbToHsl(r, g, b);
+    document.documentElement.style.setProperty('--website-color_h', hsl[0]);
+    document.documentElement.style.setProperty('--website-color_s', hsl[1] + '%');
+    document.documentElement.style.setProperty('--website-color_l', hsl[2] + '%');
+}
+
+function addColorPicker(defaultColor = "#ffffff") {
+    const newPickerId = `colorPicker-${Date.now()}`;
+    document.querySelector("#color").insertAdjacentHTML(
+        "beforeend",
+        `<input type="color" id="${newPickerId}" value="${defaultColor}" />`
+    );
+
+    const newPicker = document.getElementById(newPickerId);
+    newPicker.addEventListener('input', handleColorInput);
+}
+
+function setHexToHslVariables(hex) {
+  const [r, g, b] = hex.match(/\w\w/g).map(x => parseInt(x, 16)); // Convert hex to RGB
+  const [h, s, l] = rgbToHsl(r, g, b); // Convert RGB to HSL
+  document.documentElement.style.setProperty('--website-color_h', h);
+  document.documentElement.style.setProperty('--website-color_s', `${s}%`);
+  document.documentElement.style.setProperty('--website-color_l', `${l}%`);
+}
+
+function rgbToHsl(r, g, b) {
+    r /= 255, g /= 255, b /= 255;
+    const max = Math.max(r, g, b), min = Math.min(r, g, b);
+    let h, s, l = (max + min) / 2;
+    if (max == min) {
+        h = s = 0;
+    } else {
+        const d = max - min;
+        s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+        switch (max) {
+            case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+            case g: h = (b - r) / d + 2; break;
+            case b: h = (r - g) / d + 4; break;
+        }
+        h /= 6;
+    }
+    return [Math.round(h * 360), Math.round(s * 100), Math.round(l * 100)];
 }
