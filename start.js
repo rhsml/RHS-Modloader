@@ -1615,7 +1615,7 @@ function updateStyle(first = 0) {
 
     --website-base1: hsl(var(--website-color_h), var(--website-color_s), calc(var(--website-color_l) + 21.6%));
 
-    --website-base2: hsl(var(--website-color_h), var(--website-color_s), calc(var(--website-color_l) - 18.2%));
+    --website-base2: hsl(var(--website-color_h), var(--website-color_s), calc(var(--website-color_l) + 18.2%));
     --flexbar-outline: hsl(
     var(--website-color_h), 
     var(--website-color_s), 
