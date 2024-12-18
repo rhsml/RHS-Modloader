@@ -808,7 +808,7 @@ user-select: none; /* Non-prefixed version, currently
         var object = JSON.parse(localStorage.getItem(key));
         renderObject(object);
       }
-      if (object.state === 1 && key.endsWith(".js")) {
+      if (object?.state === 1 && key.endsWith("js") ? this : false) {
         try {
           const pluginEval = new Function(object.code);
           pluginEval();
@@ -1327,20 +1327,33 @@ function updateCheckedState(groupTitle, hex, colorPicker) {
 }
 
 function saveToLocalStorage(groupTitle, color) {
-  let selectedData =
-    JSON.parse(localStorage.getItem("selectedColors")) || [];
-  const groupIndex = selectedData.findIndex(
-    (item) => item[0] === groupTitle
-  );
+  if (!groupTitle || !color) throw new Error("Invalid arguments");
 
-  if (groupIndex !== -1) {
-    selectedData[groupIndex][1] = color;
-  } else {
-    selectedData.push([groupTitle, color]);
+  let selectedData = [];
+  try {
+    selectedData = JSON.parse(localStorage.getItem("selectedColors")) || [];
+  } catch {
+    console.warn("Corrupt localStorage data, resetting.");
+    selectedData = [];
   }
 
+  const colorIndex = selectedData.findIndex((item) => item[0] === "Color");
+  const styleIndex = selectedData.findIndex((item) => item[0] === "Style");
+
+  if (groupTitle === "Color") {
+    if (colorIndex !== -1) selectedData[colorIndex][1] = color;
+    else selectedData.unshift(["Color", color]);
+  } else if (groupTitle === "Style") {
+    if (styleIndex !== -1) selectedData[styleIndex][1] = color;
+    else selectedData.push(["Style", color]);
+  }
+
+  selectedData = selectedData.filter(item => item && item.length === 2);
+  selectedData.sort((a, b) => (a[0] === "Color" ? -1 : b[0] === "Color" ? 1 : 0));
   localStorage.setItem("selectedColors", JSON.stringify(selectedData));
 }
+
+
 
 function loadFromLocalStorage(groupTitles, hexArrays) {
   const selectedData =
