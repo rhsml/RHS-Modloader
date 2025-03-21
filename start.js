@@ -1108,7 +1108,7 @@ if (
   localStorage.getItem("sidebar") !== "false" &&
   localStorage.getItem("sidebar") !== null
 ) {
-  // fetch("https://raw.githubusercontent.com/PoyOzk/RHS-Modloader/main/sidebar.js")
+  // fetch("https://raw.githubusercontent.com/rhsml/RHS-Modloader/main/sidebar.js")
   //   .then(response => response.text())
   //   .then(d => (Function(d))());
 
